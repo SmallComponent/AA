@@ -3,7 +3,7 @@
 	var userName = 'abc@163.com';
 	var password = 'abc123';
 
-	var loginUrl = 'http://www.baidu.com/'; // 'https://www.adidas.com.cn/customer/account/login/';
+	var loginUrl = 'https://www.adidas.com.cn/customer/account/login/'; // 'https://www.baidu.com/'; //
 
 	openLogin(loginUrl);
 
