@@ -29,23 +29,30 @@
 		]);
 
 		curl.on('end', function(statusCode, body, headers) {
+			console.log('on end 1');
+		});
 
-			console.info(statusCode);
-			console.info('---');
-			console.info(body.length);
-			console.info(headers);
-			console.info(body);
-			console.info('---');
-			console.info(this.getInfo('TOTAL_TIME'));
+		curl.on('end', function(statusCode, body, headers) {
+			console.log('on end');
+			// console.info(statusCode);
+			// console.info('---');
+			// console.info(body.length);
+			// console.info(headers);
+			// console.info(body);
+			// console.info('---');
+			// console.info(this.getInfo('TOTAL_TIME'));
 
-			this.close();
+			// this.close();
+			// curl.perform();
 		});
 
 		curl.on('error', function() {
 			console.log(arguments);
 			curl.close();
 		});
+
 		curl.perform();
+		console.log('after perform');
 	}
 
 
