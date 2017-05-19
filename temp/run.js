@@ -6,6 +6,8 @@
 	let userName = 'abc@163.com';
 	let password = 'abc123';
 
+	let i = 1;
+
 
 	let Curl = require('node-libcurl').Curl;
 	let jqdom = require('jqdom');
@@ -100,15 +102,19 @@
 	}
 
 	function logResult(result) {
-		let fileName = result.curl.url.replace(/[:\/\.]/ig, '_');
+		let fileName = result.curl.url
+			.replace('//www.adidas.com.cn/', '')
+			.replace(/[:\/\.]/ig, '_');
 
-		let bodyFileName = `${fileName}_body.html`;
+		let bodyFileName = `${i}_${fileName}_body.html`;
 		let bodyPath = getLogFilePath(bodyFileName);
 		fs.writeFileSync(bodyPath, result.body);
 
-		let headerFileName = `${fileName}_header.json`;
+		let headerFileName = `${i}_${fileName}_header.json`;
 		let headerPath = getLogFilePath(headerFileName)
 		fs.writeFileSync(headerPath, JSON.stringify(result.headers));
+
+		i++;
 	}
 
 	function bindErrorHandler(curl) {
