@@ -1,33 +1,33 @@
 ;
 (function() {
-	var path = require('path');
-	var cookieFile = path.join(__dirname, 'cookie.txt');
-	console.log(cookieFile);
+	let fs = require('fs');
+	let path = require('path');
+	let cookieFile = path.join(__dirname, 'cookie.txt');
 
-	var userName = 'abc@163.com';
-	var password = 'abc123';
+	let userName = 'abc@163.com';
+	let password = 'abc123';
 
-	var loginUrl = 'https://www.adidas.com.cn/customer/account/login/';
-	let productUrl = 'http://www.adidas.com.cn/cg5804';
 
-	var Curl = require('node-libcurl').Curl;
-	var jqdom = require('jqdom');
+	let Curl = require('node-libcurl').Curl;
+	let jqdom = require('jqdom');
 
 	createCurl()
-		.then(loadLogin)
+		.then(loadLoginPage)
 		.then(login)
 		.then(toProductPage)
+		.then(addToCart)
 		.catch(console.log.bind(console));
 
 	return void(0);
 
-	function loadLogin(result) {
+	function loadLoginPage(result) {
+		let loginUrl = 'https://www.adidas.com.cn/customer/account/login/';
 		return result.curl.get(loginUrl);
 	}
 
 	function login(result) {
-		var loginPostUrl = 'https://www.adidas.com.cn/customer/account/loginPost/';
-		var data = `login%5Busername%5D=abc%40163.com&login%5Bpassword%5D=abc123`;
+		let loginPostUrl = 'https://www.adidas.com.cn/customer/account/loginPost/';
+		let data = `login%5Busername%5D=abc%40163.com&login%5Bpassword%5D=abc123`;
 
 		return result.curl.post(loginPostUrl, data)
 			.then(function(result) {
@@ -37,15 +37,29 @@
 	}
 
 	function toProductPage(result) {
+		let productUrl = 'http://www.adidas.com.cn/cg5804';
+
 		return result.curl.get(productUrl)
 			.then(function(result) {
-				console.log(result.body);
+				// console.log(result.body);
+				return result;
+			});
+	}
+
+	function addToCart(result) {
+		let addCartUrl = 'http://www.adidas.com.cn/checkout/cart/add/';
+		let data = `token=b90bff18624d90ad4677124317c6b050&isajax=yes&release2=yes&product=333157&super_attribute%5B185%5D=49&qty=1`;
+
+		return result.curl.post(addCartUrl, data)
+			.then(function(result) {
+				let addToCartReturnBody = getFilePath('addToCartReturnBody.html');
+				fs.writeFileSync(addToCartReturnBody, result.body);
 				return result;
 			});
 	}
 
 	function createCurl() {
-		var curl = new Curl();
+		let curl = new Curl();
 
 		curl.setOpt(Curl.option.COOKIEFILE, cookieFile);
 		// curl.setOpt(Curl.option.COOKIEJAR, cookieFile);
@@ -119,11 +133,15 @@
 	}
 
 	function httpResult() {
-		var curl = this;
+		let curl = this;
 		return new Promise(function(resolve, reject) {
 			curl.end = resolve;
 			curl.error = reject;
 		});
 	}
 
+
+	function getFilePath(fileName) {
+		return path.join(__dirname, 'temp', fileName);
+	}
 })();
