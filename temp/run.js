@@ -2,7 +2,6 @@
 (function() {
 	let fs = require('fs');
 	let path = require('path');
-	let cookieFile = path.join(__dirname, 'cookie.txt');
 
 	let userName = 'abc@163.com';
 	let password = 'abc123';
@@ -46,18 +45,14 @@
 		let addCartUrl = 'http://www.adidas.com.cn/checkout/cart/add/';
 		let data = `token=b90bff18624d90ad4677124317c6b050&isajax=yes&release2=yes&product=333157&super_attribute%5B185%5D=49&qty=1`;
 
-		return result.curl.post(addCartUrl, data)
-			.then(function(result) {
-				let addToCartReturnBody = getFilePath('addToCartReturnBody.html');
-				fs.writeFileSync(addToCartReturnBody, result.body);
-				return result;
-			});
+		return result.curl.post(addCartUrl, data);
 	}
 
 	function createCurl() {
 		let curl = new Curl();
 
-		curl.setOpt(Curl.option.COOKIEFILE, cookieFile);
+		let cookieFilePath = getLogFilePath('cookie.txt');
+		curl.setOpt(Curl.option.COOKIEFILE, cookieFilePath);
 		// curl.setOpt(Curl.option.COOKIEJAR, cookieFile);
 
 		curl.setOpt(Curl.option.FOLLOWLOCATION, true);
@@ -88,15 +83,32 @@
 	function bindEndHandler(curl) {
 		curl.on('end', function(statusCode, body, headers) {
 			console.log('end:', statusCode /*, body, headers*/ );
+
+			let result = {
+				curl: curl,
+				statusCode: statusCode,
+				body: body,
+				headers: headers,
+			};
+
+			logResult(result);
+
 			if(curl.end) {
-				curl.end({
-					curl: curl,
-					statusCode: statusCode,
-					body: body,
-					headers: headers,
-				});
+				curl.end(result);
 			}
 		});
+	}
+
+	function logResult(result) {
+		let fileName = result.curl.url.replace(/[:\/\.]/ig, '_');
+
+		let bodyFileName = `${fileName}_body.html`;
+		let bodyPath = getLogFilePath(bodyFileName);
+		fs.writeFileSync(bodyPath, result.body);
+
+		let headerFileName = `${fileName}_header.json`;
+		let headerPath = getLogFilePath(headerFileName)
+		fs.writeFileSync(headerPath, JSON.stringify(result.headers));
 	}
 
 	function bindErrorHandler(curl) {
@@ -113,6 +125,8 @@
 
 	function httpGet(url, callback) {
 		console.log('get:', url);
+		this.url = url;
+
 		this.setOpt(Curl.option.URL, url);
 		this.perform();
 		return this.httpResult();
@@ -120,6 +134,7 @@
 
 	function httpPost(url, data) {
 		console.log('post:', url, data);
+		this.url = url;
 
 		this.setOpt(Curl.option.URL, url);
 		this.setOpt(Curl.option.POST, true);
@@ -137,7 +152,7 @@
 	}
 
 
-	function getFilePath(fileName) {
-		return path.join(__dirname, 'temp', fileName);
+	function getLogFilePath(fileName) {
+		return path.join(__dirname, '../log', fileName);
 	}
 })();
