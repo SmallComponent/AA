@@ -29,11 +29,7 @@
 		let loginPostUrl = 'https://www.adidas.com.cn/customer/account/loginPost/';
 		let data = `login%5Busername%5D=abc%40163.com&login%5Bpassword%5D=abc123`;
 
-		return result.curl.post(loginPostUrl, data)
-			.then(function(result) {
-				console.log(result.statusCode);
-				return result;
-			});
+		return result.curl.post(loginPostUrl, data);
 	}
 
 	function toProductPage(result) {
