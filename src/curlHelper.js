@@ -9,7 +9,7 @@ exports.createCurl = createCurl;
 function createCurl(context) {
 	let curl = new Curl();
 
-	let cookieFilePath = getLogFilePath('cookie.txt');
+	let cookieFilePath = createCookieFile();
 	curl.setOpt(Curl.option.COOKIEFILE, cookieFilePath);
 	// curl.setOpt(Curl.option.COOKIEJAR, cookieFile);
 
@@ -25,6 +25,19 @@ function createCurl(context) {
 	appendHttpMethod(context);
 
 	return context;
+}
+
+function createCookieFile() {
+	var timeSpan = Date.now();
+	var random = Math.random();
+
+	let filePath = getLogFilePath(`cookie-${timeSpan}-${random}.txt`);
+
+	if(!fs.existsSync(filePath)) {
+		fs.writeFileSync(filePath, '');
+	}
+
+	return filePath;
 }
 
 function appendHttpMethod(context) {
