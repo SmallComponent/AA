@@ -17,6 +17,10 @@
 		.then(login)
 		.then(toProductPage)
 		.then(addToCart)
+		.then(toProcess)
+		.then(saveOrder)
+		.then(orderDetail)
+		// .then(pay)
 		.catch(console.log.bind(console));
 
 	return void(0);
@@ -35,12 +39,7 @@
 
 	function toProductPage(result) {
 		let productUrl = 'http://www.adidas.com.cn/cg5804';
-
-		return result.curl.get(productUrl)
-			.then(function(result) {
-				// console.log(result.body);
-				return result;
-			});
+		return result.curl.get(productUrl);
 	}
 
 	function addToCart(result) {
@@ -48,6 +47,28 @@
 		let data = `token=b90bff18624d90ad4677124317c6b050&isajax=yes&release2=yes&product=333157&super_attribute%5B185%5D=49&qty=1`;
 
 		return result.curl.post(addCartUrl, data);
+	}
+
+	function toProcess(result) {
+		let url = 'http://www.adidas.com.cn/yancheckout/process/';
+		return result.curl.get(url);
+	}
+
+	function saveOrder(result) {
+		let url = 'https://www.adidas.com.cn/yancheckout/process/saveShippingAndPayment/';
+		let data = '';
+
+		return result.curl.post(url, data);
+	}
+
+	function orderDetail(result) {
+		let url = 'https://www.adidas.com.cn/yancheckout/process/overview/reserved_order_id/4811042026/';
+		return result.curl.get(url);
+	}
+
+	function pay(result) {
+		let url = 'https://mapi.alipay.com/gateway.do?_input_charset=utf-8&logistics_fee=0&logistics_payment=BUYER_PAY&logistics_type=EXPRESS&notify_url=https%3A%2F%2Fwww.adidas.com.cn%2Falipay%2Fpayment%2Fconfirm%2F&out_trade_no=6199893593&partner=2088801058693440&payment_type=1&paymethod=motoPay&price=1099.00&quantity=1&return_url=https%3A%2F%2Fwww.adidas.com.cn%2Falipay%2Fpayment%2Fsuccess%2F&seller_email=shopadidascn2012%40gmail.com&service=create_direct_pay_by_user&subject=6199893593&sign=73deba086f1b175a7a6f5570847631b0&sign_type=MD5';
+		return result.curl.get(url);
 	}
 
 	function createCurl() {
