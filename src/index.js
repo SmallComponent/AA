@@ -3,6 +3,7 @@ let curlHelper = require('./curlHelper');
 let loadLoginPage = require('./loadLoginPage').loadLoginPage;
 let login = require('./login').login;
 let toProductPage = require('./toProductPage').toProductPage;
+let getProductForm = require('./getProductForm').getProductForm;
 let addToCart = require('./addToCart').addToCart;
 let toOrder = require('./toOrder').toOrder;
 let saveOrder = require('./saveOrder').saveOrder;
@@ -23,7 +24,8 @@ Promise.resolve(context)
 	.then(loadLoginPage)
 	.then(login)
 	.then(toProductPage)
-	// .then(addToCart)
+	.then(getProductForm)
+	.then(addToCart)
 	// .then(toOrder)
 	// .then(saveOrder)
 	// .then(orderDetail)

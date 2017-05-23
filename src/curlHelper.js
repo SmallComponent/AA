@@ -73,7 +73,7 @@ function bindEndHandler(context) {
 function logResult(result) {
 	let fileName = result.curl.url
 		.replace('//www.adidas.com.cn/', '')
-		.replace(/[:\/\.]/ig, '_');
+		.replace(/[:\/\.\?]/ig, '_');
 
 	let bodyFileName = `${i}_${fileName}_body.html`;
 	let bodyPath = getLogFilePath(bodyFileName);
