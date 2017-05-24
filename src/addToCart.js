@@ -7,9 +7,9 @@ exports.addToCart = addToCart;
 function addToCart(context) {
 	let $ = jqdom(context.body);
 
-	// if(sellout($)) {
-	return Promise.reject(selloutKey);
-	// }
+	if(sellout($)) {
+		return Promise.reject(selloutKey);
+	}
 
 	let form = $('#product_addtocart_form');
 	let url = form.attr('action');
@@ -21,9 +21,20 @@ function addToCart(context) {
 
 	let data = `token=${token}&isajax=yes&release2=yes&product=${productId}&super_attribute[185]=${size}&qty=1`;
 
-	return context.curl.post(url, data);
+	return post();
 
 	// return void(0);
+
+	function post() {
+		return context.curl.post(url, data)
+			.then(function(context) {
+				if(context.statusCode === 429) {
+					return post();
+				} else {
+					return context;
+				}
+			});
+	}
 
 	function sellout() {
 		$(`#show_product_details :contains("${selloutKey}")`).length > 0;
