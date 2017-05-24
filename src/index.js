@@ -14,6 +14,7 @@ var context = {
 	userName: 'abc@163.com',
 	password: 'abc123',
 	productUrl: 'http://www.adidas.com.cn/cg5804',
+	size: 42,
 	proxy: '10.10.10.10:18',
 	proxyUserName: 'userName',
 	proxyPassword: 'password',
