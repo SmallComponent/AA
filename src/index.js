@@ -28,7 +28,7 @@ Promise.resolve(context)
 	.then(getProductForm)
 	.then(addToCart)
 	.then(toOrder)
-	// .then(saveOrder)
+	.then(saveOrder)
 	// .then(orderDetail)
 	// .then(pay)
 	.catch(console.log.bind(console));
