@@ -20,6 +20,18 @@ function createCurl(context) {
 		'Connection:keep-alive',
 	]);
 
+	if(context.proxy) {
+		curl.setOpt(Curl.option.PROXY, context.proxy);
+	}
+
+	if(context.proxyUserName) {
+		curl.setOpt(Curl.option.PROXYUSERNAME, context.proxyUserName);
+	}
+
+	if(context.proxyPassword) {
+		curl.setOpt(Curl.option.PROXYPASSWORD, context.proxyPassword);
+	}
+
 	context.curl = curl;
 
 	appendHttpMethod(context);
