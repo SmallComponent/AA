@@ -1,4 +1,4 @@
-let runner = require('./runner');
+let runner = require('./core/runner');
 
 let contexts = getConfigs();
 startAll(contexts)
@@ -8,13 +8,14 @@ startAll(contexts)
 return void(0);
 
 function startAll(contexts) {
-	var process = contexts.map(context => runner.start(context));
+	let process = contexts.map(context => runner.start(context));
 	return Promise.all(process);
 }
 
 function showResult(contexts) {
-	var results = contexts.map(context => context.status);
-	console.log('success:', results);
+	let results = contexts.map(context => context.status);
+	let resultsString = JSON.stringify(results, null, 2);
+	console.log('results:', resultsString);
 }
 
 function getConfigs() {

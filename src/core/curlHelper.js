@@ -141,5 +141,5 @@ function httpResult() {
 }
 
 function getLogFilePath(fileName) {
-	return path.join(__dirname, '../log', fileName);
+	return path.join(__dirname, './../../log', fileName);
 }
