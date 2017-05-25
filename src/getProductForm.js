@@ -1,6 +1,8 @@
 exports.getProductForm = getProductForm;
 
 function getProductForm(context) {
+	context.status = '加载产品表单...';
+
 	let url = 'http://www.adidas.com.cn/specific/product/ajaxview/';
 	let regexp = /url:\s*\"http:\/\/www.adidas.com.cn\/specific\/product\/ajaxview\/\"\,\s*data:\s*\"id=\"\s*\+\s*(\d+)/ig;
 	let result = regexp.exec(context.body);

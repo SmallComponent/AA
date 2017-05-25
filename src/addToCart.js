@@ -5,6 +5,8 @@ let selloutKey = '售罄';
 exports.addToCart = addToCart;
 
 function addToCart(context) {
+	context.status = '加入购物车...';
+
 	let $ = jqdom(context.body);
 
 	if(sellout($)) {

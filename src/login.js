@@ -3,6 +3,8 @@ let jqdom = require('jqdom');
 exports.login = login;
 
 function login(context) {
+	context.status = '登录...';
+
 	let $ = jqdom(context.body);
 	let form = $('#form-validate');
 

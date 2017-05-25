@@ -1,6 +1,8 @@
 exports.toOrder = toOrder;
 
 function toOrder(context) {
+	context.status = '加载下单页面...';
+
 	let data = context.body;
 
 	if(isFailed(data)) {

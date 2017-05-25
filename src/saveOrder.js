@@ -3,6 +3,8 @@ let jqdom = require('jqdom');
 exports.saveOrder = saveOrder;
 
 function saveOrder(context) {
+	context.status = '提交订单...';
+
 	let $ = jqdom(context.body);
 	let form = $('#co-shipping-form');
 
