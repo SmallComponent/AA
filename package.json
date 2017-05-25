@@ -1,0 +1,23 @@
+{
+  "name": "aa",
+  "version": "1.0.0",
+  "description": "aa demo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhangaz1/AA.git"
+  },
+  "author": "zhangaz1",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zhangaz1/AA/issues"
+  },
+  "homepage": "https://github.com/zhangaz1/AA#readme",
+  "dependencies": {
+    "jqdom": "0.0.5",
+    "node-libcurl": "^1.1.0"
+  }
+}
