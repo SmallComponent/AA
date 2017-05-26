@@ -34,7 +34,8 @@ function createWindow() {
 	});
 
 	win.loadURL(url.format({
-		pathname: 'index.html',
+		// pathname: 'index.html',
+		pathname: './pages/index.html',
 		protocol: 'file:',
 		slashes: true
 	}));
