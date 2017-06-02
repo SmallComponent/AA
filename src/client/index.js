@@ -1,11 +1,15 @@
 let runner = require('./core/runner');
 
-let contexts = getConfigs();
-startAll(contexts)
-	.then(showResult)
-	.catch(console.log.bind(console));
+exports = run;
 
 return void(0);
+
+function run() {
+	let contexts = getConfigs();
+	startAll(contexts)
+		.then(showResult)
+		.catch(console.log.bind(console));
+}
 
 function startAll(contexts) {
 	let process = contexts.map(context => runner.start(context));
