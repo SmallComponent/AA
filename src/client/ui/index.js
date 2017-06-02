@@ -16,8 +16,10 @@
 
 		$('#run').click(function() {
 			const remote = require('electron').remote;
-			var runMulti = remote.require('./../core/runMulti');
-			runMulti.run();
+			var run = remote.require('./run');
+			run({
+				userName: 'zs',
+			});
 		});
 	}
 
