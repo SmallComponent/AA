@@ -37,8 +37,8 @@ function addMessageHandler() {
 	});
 
 	ipcMain.on('synchronous-message', (event, arg) => {
-		console.log(arg); // prints "ping"
 		event.returnValue = 'pong sync';
+		console.log(arg); // prints "ping"
 	});
 }
 
