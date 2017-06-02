@@ -4,7 +4,19 @@
 	messageTest();
 	menuTest();
 
+	newWindowTest();
+
 	return void(0);
+
+	function newWindowTest() {
+		const remote = require('electron').remote;
+		const BrowserWindow = remote.BrowserWindow;
+		var win = new BrowserWindow({
+			width: 800,
+			height: 600
+		});
+		win.loadURL('https://github.com');
+	}
 
 	function messageTest() {
 		const {
