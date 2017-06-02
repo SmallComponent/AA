@@ -47,4 +47,10 @@ function createWindow() {
 	win.on('closed', () => {
 		win = null
 	});
+
+	win.webContents.on('did-finish-load', function() {
+		win.webContents.send('key', {
+			name: 'zs',
+		});
+	});
 }

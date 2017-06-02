@@ -2,6 +2,16 @@
 (function() {
 	$(function() {
 		bindHandlers();
+
+		const {
+			ipcRenderer
+		} = require('electron');
+
+
+		ipcRenderer.on('key', (event, arg) => {
+			console.log('key', event, arg);
+		});
+
 	});
 
 	return void(0);
