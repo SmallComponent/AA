@@ -1,6 +1,7 @@
 const {
 	app,
-	BrowserWindow
+	BrowserWindow,
+	ipcMain,
 } = require('electron');
 const path = require('path');
 const url = require('url');
@@ -12,6 +13,8 @@ init();
 return void(0);
 
 function init() {
+	addMessageHandler();
+
 	app.on('ready', createWindow);
 
 	app.on('window-all-closed', () => {
@@ -27,6 +30,18 @@ function init() {
 	});
 }
 
+function addMessageHandler() {
+	ipcMain.on('asynchronous-message', (event, arg) => {
+		console.log(arg); // prints "ping"
+		event.sender.send('asynchronous-reply', 'pong asyn');
+	});
+
+	ipcMain.on('synchronous-message', (event, arg) => {
+		console.log(arg); // prints "ping"
+		event.returnValue = 'pong sync';
+	});
+}
+
 function createWindow() {
 	win = new BrowserWindow({
 		width: 800,
@@ -34,8 +49,8 @@ function createWindow() {
 	});
 
 	win.loadURL(url.format({
-		// pathname: 'index.html',
-		pathname: './pages/index.html',
+		pathname: 'index.html',
+		// pathname: './pages/index.html',
 		protocol: 'file:',
 		slashes: true
 	}));
