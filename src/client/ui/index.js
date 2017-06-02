@@ -16,8 +16,8 @@
 
 		$('#run').click(function() {
 			const remote = require('electron').remote;
-			var run = remote.require('./../index');
-			run();
+			var runMulti = remote.require('./../core/runMulti');
+			runMulti.run();
 		});
 	}
 
