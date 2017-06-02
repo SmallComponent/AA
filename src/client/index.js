@@ -27,7 +27,5 @@ function getConfigs() {
 		proxy: 'http://61.191.41.130:80',
 		proxyUserName: null,
 		proxyPassword: null,
-		proxyUserName: 'userName',
-		proxyPassword: 'password',
 	}];
 }
