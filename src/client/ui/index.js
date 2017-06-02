@@ -1,12 +1,38 @@
 ;
 (function() {
+	$(function() {
+		bindHandlers();
+	});
 
-	messageTest();
-	menuTest();
+	// messageTest();
+	// menuTest();
 
-	newWindowTest();
+	// newWindowTest();
+	// remoteCallbackTest();
 
 	return void(0);
+
+	function bindHandlers() {
+
+		$('#run').click(function() {
+			const remote = require('electron').remote;
+			var run = remote.require('./../index');
+			run();
+		});
+	}
+
+	function remoteCallbackTest() {
+		var mapNumbers = require('electron').remote.require('./mapNumbers');
+
+		var withRendererCb = mapNumbers.withRendererCallback(function fnInRender(x) {
+			console.log('log from render call by main', x);
+			return x + 1;
+		});
+
+		var withLocalCb = mapNumbers.withLocalCallback();
+
+		console.log(withRendererCb, withLocalCb);
+	}
 
 	function newWindowTest() {
 		const remote = require('electron').remote;

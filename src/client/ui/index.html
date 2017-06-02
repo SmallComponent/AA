@@ -4,13 +4,36 @@
     <head>
         <meta charset="UTF-8">
         <title>AA</title>
+        <script type="text/javascript">
+            window.nodeRequire = require;
+            // window.nodeExports = exports;
+            window.nodeModule = module;
+            delete window.require;
+            // delete window.exports;
+            delete window.module;
+        </script>
+
+        <script type="text/javascript" src="./js/jquery/jquery.min.js"></script>
+
+        <script type="text/javascript">
+            window.require = nodeRequire;
+            // window.exports = nodeExports;
+            window.module = nodeModule;
+            delete window.nodeRequire;
+            // delete window.nodeExports;
+            delete window.nodeModule;
+        </script>
+
         <script type="text/javascript" src="index.js">
         </script>
+
         <script type="text/javascript">
         </script>
     </head>
 
     <body>
+        <button id="run">run</button>
+
         <h1>Hello World!</h1> We are using node
         <script>
             document.write(process.versions.node)

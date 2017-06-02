@@ -16,6 +16,7 @@ function init() {
 	addMessageHandler();
 
 	app.on('ready', createWindow);
+	// app.on('ready', useWebContents);
 
 	app.on('window-all-closed', () => {
 		if(process.platform !== 'darwin') {
@@ -28,6 +29,16 @@ function init() {
 			createWindow()
 		}
 	});
+}
+
+function useWebContents() {
+	let win = new BrowserWindow({
+		width: 800,
+		height: 1500
+	});
+	win.loadURL('http://github.com');
+	let contents = win.webContents;
+	console.log(contents);
 }
 
 function addMessageHandler() {
