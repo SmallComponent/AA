@@ -16,7 +16,7 @@
       <th>proxyPassword</th>
       <th>status</th>
     </tr>
-    <tr *ngFor="let config of configs">
+    <tr *ngFor="let config of configs | flying">
       <td>{{config.userName}}</td>
       <td>{{config.productUrl}}</td>
       <td>{{config.size}}</td>

@@ -11,9 +11,33 @@ export class AppComponent {
     title = 'app works!';
 
     configs = [];
+    configsDic = {};
+
+	constructor() {
+		const ipcRenderer = electron.ipcRenderer;
+		ipcRenderer.on('log', (event, data) => {
+			console.log('got log:', data);
+		});
+		ipcRenderer.on('error', (event, data) => {
+			console.log('got error:', data);
+		});
+		ipcRenderer.on('result', (event, data) => {
+			console.log('got result:', data);
+		});
+
+		ipcRenderer.on('status', (event, data) => {
+			console.log('got status:', data);
+			let config = this.configsDic[data.id];
+			config.status = data.status;
+
+            // this.configs = this.configs.map(config => config);
+		});
+	}
 
     run() {
         this.configs = this.getConfigs();
+		this.initConfigsDic();
+
         let config = {
 			userName: 'zs',
 			// win: remote.getCurrentWindow(),
@@ -22,6 +46,14 @@ export class AppComponent {
 
 		run(config);
     }
+
+	initConfigsDic() {
+        let configsDic =
+			this.configsDic = {};
+		this.configs.forEach(
+            config => configsDic[config.id] = config
+        );
+	}
 
     getConfigs() {
         return [{
@@ -33,6 +65,7 @@ export class AppComponent {
 			proxy: 'http://61.191.41.130:80',
 			proxyUserName: null,
 			proxyPassword: null,
+            status: 'xxx',
 		}, {
 				id: 2,
 				userName: 'abc@163.com',
