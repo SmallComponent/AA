@@ -1,5 +1,6 @@
 console.log('test runing...');
 
+console.log(console.read());
 // require('node-libcurl');
 
 process.on('message', function(m) {

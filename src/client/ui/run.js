@@ -34,23 +34,30 @@ function useExec(config) {
 	var child = exec('node ./../index.js');
 
 	child.stdout.on('data', function(data) {
-		// console.log('stdout: ' + data);
+		console.log('stdout: ' + data);
 		win.webContents.send('key', {
 			data: data,
 		});
 	});
+
 	child.stderr.on('data', function(data) {
 		// console.log('stdout: ' + data);
 		win.webContents.send('key', {
 			data: data,
 		});
 	});
+
 	child.on('close', function(code) {
 		// console.log('closing code: ' + code);
 		win.webContents.send('key', {
 			data: code,
 		});
 	});
+
+	var writeResult = child.stdin.write(JSON.stringify(config), function() {
+		console.log('writeCallback:', arguments);
+	});
+	console.log('writeResult:', writeResult);
 }
 
 function useSpawn() {
