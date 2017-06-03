@@ -21,6 +21,6 @@ function result(messageObject) {
 
 function notifyUi(messageObject) {
 	// var objString = console.dir(messageObject);
-	var objString = JSON.stringify(messageObject, null, 4);
+	var objString = JSON.stringify(messageObject);
 	console.log(objString);
 }

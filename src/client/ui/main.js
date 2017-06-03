@@ -46,7 +46,7 @@ function bindRenderAndWorkerMessage(mainWindow, workProcess) {
 	workProcess.stdout.on('data', function(data) {
 		parseMessages(data)
 			.forEach(function(message) {
-				mainWindow.webContents.send(message.type || '', message);
+				mainWindow.webContents.send(message.type || 'log', message);
 			});
 	});
 
@@ -59,23 +59,13 @@ function bindRenderAndWorkerMessage(mainWindow, workProcess) {
 }
 
 function parseMessages(data) {
-	console.log(data);
-	// console.log('**************************');
-	// data.split(/}\s*{/ig)
-	// 	.forEach(m => console.log(m));
-	// return;
-	return data.split(/}\s*{/ig)
+	return data.split(/\n|\r/ig)
+		.filter(message => !!message.trim())
 		.map(message => {
-			console.log(message);
-			// message = message.replace();
-			if(!/^\s*{/ig.test(message)) {
-				message = '{' + message;
+			try {
+				return JSON.parse(message);
+			} catch(e) {
+				return message;
 			}
-			if(!/}\s*$/ig.test(message)) {
-				message = message + '}';
-			}
-
-			console.log('***********', message, '############');
-			return JSON.parse(message);
 		});
 }
