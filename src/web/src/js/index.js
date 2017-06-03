@@ -1,9 +1,7 @@
-const {
-	ipcRenderer
-} = require('electron');
+exports.start = start;
 
-;
-(function() {
+function start() {
+	const ipcRenderer = electron.ipcRenderer;
 
 	ipcRenderer.on('log', (event, data) => {
 		console.log('got log:', data);
@@ -19,4 +17,4 @@ const {
 		console.log('got status:', data);
 	});
 
-})();
+}

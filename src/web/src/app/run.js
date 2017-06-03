@@ -25,5 +25,5 @@ function run() {
 		}],
 	};
 
-	ipcRenderer.send('command', config);
+	electron.ipcRenderer.send('command', config);
 }
