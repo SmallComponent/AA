@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 import {run} from './run';
 
@@ -15,17 +15,10 @@ export class AppComponent {
 
     configs = [];
     configsDic = {};
-    configsObservable: Observable<any[]>;
 
-    theObserver;
+    timer = Observable.interval(100);
 
 	constructor() {
-		this.configsObservable = Observable.create(observer => {
-			console.log('Hello');
-			this.theObserver = observer;
-            this.theObserver.next(this.configs);
-        });
-
 		const ipcRenderer = electron.ipcRenderer;
 
 		ipcRenderer.on('log', (event, data) => {
@@ -39,19 +32,11 @@ export class AppComponent {
 		});
 
 		ipcRenderer.on('status', (event, data) => {
-            let self = this;
-			setTimeout(function() {
-				console.log('got status:', data);
-				let config = self.configsDic[data.id];
-				config.status = data.status;
-				self.status = data.status;
-                self.theObserver.next(this.configs);
-                $('#results').click();
-			});
-            // this.configs = this.configs.map(config => config);
+            console.log('got status:', data);
+            let config = this.configsDic[data.id];
+            config.status = data.status;
+            this.status = data.status;
 		});
-
-
 
 	}
 
@@ -59,7 +44,6 @@ export class AppComponent {
         this.status = 'start...';
         this.configs = this.getConfigs();
 		this.initConfigsDic();
-        this.theObserver.next(this.configs);
 
         let config = {
 			userName: 'zs',
@@ -68,11 +52,6 @@ export class AppComponent {
 		};
 
 		run(config);
-    }
-
-    refresh() {
-        this.status = 'refresh...';
-        this.theObserver.next(this.configs);
     }
 
 	initConfigsDic() {
