@@ -1,4 +1,5 @@
 let runner = require('./runner');
+const log = require('./logger').log;
 
 exports.run = run;
 
@@ -18,6 +19,9 @@ function startAll(instanceConfigs) {
 
 function showResult(contexts) {
 	let results = contexts.map(context => context.status);
-	let resultsString = JSON.stringify(results, null, 2);
-	console.log('results:', resultsString);
+	log({
+		id: '0',
+		type: 'log',
+		action: 'done',
+	});
 }

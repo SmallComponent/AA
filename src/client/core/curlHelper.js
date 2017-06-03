@@ -1,6 +1,8 @@
-let path = require('path');
-let fs = require('fs');
-let Curl = require('node-libcurl').Curl;
+const path = require('path');
+const fs = require('fs');
+const Curl = require('node-libcurl').Curl;
+
+const log = require('./logger').log;
 
 let i = 1;
 
@@ -33,6 +35,7 @@ function createCurl(context) {
 	}
 
 	context.curl = curl;
+	curl.context = context;
 
 	appendHttpMethod(context);
 
@@ -68,7 +71,11 @@ function bindEndHandler(context) {
 	let curl = context.curl;
 
 	curl.on('end', function(statusCode, body, headers) {
-		console.log('end:', statusCode /*, body, headers*/ );
+		log({
+			id: context.id,
+			type: 'log',
+			action: 'end',
+		});
 
 		context.statusCode = statusCode;
 		context.body = body;
@@ -102,7 +109,11 @@ function bindErrorHandler(context) {
 	let curl = context.curl;
 
 	curl.on('error', function(error) {
-		console.log('error:', error);
+		log({
+			id: context.id,
+			type: 'error',
+			error: error,
+		});
 		if(curl.error) {
 			curl.error({
 				curl: curl,
@@ -113,7 +124,13 @@ function bindErrorHandler(context) {
 }
 
 function httpGet(url, callback) {
-	console.log('get:', url);
+	log({
+		id: this.context.id,
+		type: 'log',
+		action: 'get',
+		url: url,
+	});
+
 	this.url = url;
 
 	this.setOpt(Curl.option.URL, url);
@@ -122,7 +139,13 @@ function httpGet(url, callback) {
 }
 
 function httpPost(url, data) {
-	console.log('post:', url, data);
+	log({
+		id: this.context.id,
+		type: 'log',
+		action: 'post',
+		url: url,
+		data: data,
+	});
 	this.url = url;
 
 	this.setOpt(Curl.option.URL, url);

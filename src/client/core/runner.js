@@ -1,3 +1,5 @@
+const log = require('./logger').log;
+
 let curlHelper = require('./curlHelper');
 
 let loadLoginPage = require('./loadLoginPage').loadLoginPage;
@@ -25,11 +27,22 @@ function start(context) {
 		// .then(orderDetail)
 		// .then(pay)
 		.then(context => {
-			context.status = "成功";
+			context.status = 'success';
+			log({
+				id: context.id,
+				type: 'result',
+				result: 'success',
+			});
 			return context;
 		})
 		.catch(reason => {
-			context.status = '失败：' + reason;
+			context.status = 'failed:' + reason;
+			log({
+				id: context.id,
+				type: 'result',
+				result: 'failed',
+				reason: reason,
+			});
 			return context;
 		});
 }
