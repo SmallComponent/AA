@@ -6,7 +6,7 @@ const {
 module.exports = createWindow();
 
 function createWindow() {
-	console.log('createWindow..................');
+	// console.log('createWindow..................');
 	mainWindow = new BrowserWindow({
 		width: 800,
 		height: 600
