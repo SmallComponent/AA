@@ -2,6 +2,7 @@ module.exports = {
 	log,
 	error,
 	result,
+	status,
 };
 
 function log(messageObject) {
@@ -16,6 +17,11 @@ function error(messageObject) {
 
 function result(messageObject) {
 	messageObject.type = 'result';
+	notifyUi(messageObject);
+}
+
+function status(messageObject) {
+	messageObject.type = 'status';
 	notifyUi(messageObject);
 }
 

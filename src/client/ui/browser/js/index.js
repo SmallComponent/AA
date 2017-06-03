@@ -17,6 +17,10 @@
 			console.log('got result:', data);
 		});
 
+		ipcRenderer.on('status', (event, data) => {
+			console.log('got status:', data);
+		});
+
 	});
 
 	return void(0);

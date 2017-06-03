@@ -71,9 +71,9 @@ function bindEndHandler(context) {
 	let curl = context.curl;
 
 	curl.on('end', function(statusCode, body, headers) {
-		logger.log({
+		logger.status({
 			id: context.id,
-			action: 'end',
+			status: context.status,
 		});
 
 		context.statusCode = statusCode;
