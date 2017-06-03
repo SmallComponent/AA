@@ -7,7 +7,6 @@
 			ipcRenderer
 		} = require('electron');
 
-
 		ipcRenderer.on('key', (event, arg) => {
 			console.log('key', event, arg);
 		});
@@ -23,7 +22,7 @@
 			var run = remote.require('./run');
 			run({
 				userName: 'zs',
-				win: remote.getCurrentWindow(),
+				// win: remote.getCurrentWindow(),
 			});
 		});
 	}

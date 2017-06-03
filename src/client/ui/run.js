@@ -30,6 +30,7 @@ function useFork() {
 
 function useExec(config) {
 	var win = config.win;
+	win = require('./mainWindow');
 	var child = exec('node ./../index.js');
 
 	child.stdout.on('data', function(data) {
