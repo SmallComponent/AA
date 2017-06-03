@@ -7,8 +7,14 @@
 	$(function() {
 		bindHandlers();
 
-		ipcRenderer.on('workMessage', (event, data) => {
-			console.log('got workMessage:', data);
+		ipcRenderer.on('log', (event, data) => {
+			console.log('got log:', data);
+		});
+		ipcRenderer.on('error', (event, data) => {
+			console.log('got error:', data);
+		});
+		ipcRenderer.on('result', (event, data) => {
+			console.log('got result:', data);
 		});
 
 	});
