@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const Curl = require('node-libcurl').Curl;
 
-const log = require('./logger').log;
+const logger = require('./utils/logger');
 
 let i = 1;
 
@@ -46,7 +46,7 @@ function createCookieFile() {
 	var timeSpan = Date.now();
 	var random = Math.random();
 
-	let filePath = getLogFilePath(`cookie-${timeSpan}-${random}.txt`);
+	let filePath = getLogFilePath('cookies', `cookie-${timeSpan}-${random}.txt`);
 
 	if(!fs.existsSync(filePath)) {
 		fs.writeFileSync(filePath, '');
@@ -71,9 +71,8 @@ function bindEndHandler(context) {
 	let curl = context.curl;
 
 	curl.on('end', function(statusCode, body, headers) {
-		log({
+		logger.log({
 			id: context.id,
-			type: 'log',
 			action: 'end',
 		});
 
@@ -95,11 +94,11 @@ function logResult(result) {
 		.replace(/[:\/\.\?]/ig, '_');
 
 	let bodyFileName = `${i}_${fileName}_body.html`;
-	let bodyPath = getLogFilePath(bodyFileName);
+	let bodyPath = getLogFilePath(result.id, bodyFileName);
 	fs.writeFileSync(bodyPath, result.body);
 
 	let headerFileName = `${i}_${fileName}_header.json`;
-	let headerPath = getLogFilePath(headerFileName)
+	let headerPath = getLogFilePath(result.id, headerFileName)
 	fs.writeFileSync(headerPath, JSON.stringify(result.headers));
 
 	i++;
@@ -109,9 +108,8 @@ function bindErrorHandler(context) {
 	let curl = context.curl;
 
 	curl.on('error', function(error) {
-		log({
+		logger.error({
 			id: context.id,
-			type: 'error',
 			error: error,
 		});
 		if(curl.error) {
@@ -124,9 +122,8 @@ function bindErrorHandler(context) {
 }
 
 function httpGet(url, callback) {
-	log({
+	logger.log({
 		id: this.context.id,
-		type: 'log',
 		action: 'get',
 		url: url,
 	});
@@ -139,9 +136,8 @@ function httpGet(url, callback) {
 }
 
 function httpPost(url, data) {
-	log({
+	logger.log({
 		id: this.context.id,
-		type: 'log',
 		action: 'post',
 		url: url,
 		data: data,
@@ -163,6 +159,8 @@ function httpResult() {
 	});
 }
 
-function getLogFilePath(fileName) {
-	return path.join(__dirname, './../../../log', fileName);
+function getLogFilePath(id, fileName) {
+	let fullPath = path.join(__dirname, `./../../../log/${id}-${fileName}`);
+
+	return fullPath;
 }

@@ -1,4 +1,4 @@
-const log = require('./logger').log;
+const logger = require('./utils/logger');
 
 let curlHelper = require('./curlHelper');
 
@@ -28,20 +28,18 @@ function start(context) {
 		// .then(pay)
 		.then(context => {
 			context.status = 'success';
-			log({
+			logger.result({
 				id: context.id,
-				type: 'result',
 				result: 'success',
 			});
 			return context;
 		})
 		.catch(reason => {
 			context.status = 'failed:' + reason;
-			log({
+			logger.result({
 				id: context.id,
-				type: 'result',
 				result: 'failed',
-				reason: reason,
+				reason: reason.toString(),
 			});
 			return context;
 		});

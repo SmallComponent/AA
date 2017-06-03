@@ -1,5 +1,5 @@
 let runner = require('./runner');
-const log = require('./logger').log;
+const logger = require('./utils/logger');
 
 exports.run = run;
 
@@ -19,9 +19,8 @@ function startAll(instanceConfigs) {
 
 function showResult(contexts) {
 	let results = contexts.map(context => context.status);
-	log({
+	logger.result({
 		id: '0',
-		type: 'log',
 		action: 'done',
 	});
 }
