@@ -12,6 +12,20 @@ return void(0);
 function init() {
 	app.on('ready', function() {
 		let mainWindow = require('./node/mainWindow');
+		let workProcess = require('./node/workProcess');
+
+		workProcess.stdout.on('data', function(data) {
+			mainWindow.webContents.send('workMessage', data);
+		});
+
+		ipcMain.on('command', function(event, data) {
+			var result = workProcess.stdin.write(JSON.stringify(data),function(){
+				console.log('write callback',arguments);
+			});
+			console.log('write result:',result);
+		})
+
+
 		mainWindow.loadURL(url.format({
 			pathname: './browser/index.html',
 			// pathname: './pages/index.html',
@@ -27,9 +41,9 @@ function init() {
 		}
 	});
 
-	app.on('activate', () => {
-		if(win === null) {
-			createWindow()
-		}
-	});
+	// app.on('activate', () => {
+	// 	if(win === null) {
+	// 		createWindow()
+	// 	}
+	// });
 }

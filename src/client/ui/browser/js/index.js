@@ -1,14 +1,14 @@
 ;
 (function() {
+	const {
+		ipcRenderer
+	} = require('electron');
+
 	$(function() {
 		bindHandlers();
 
-		const {
-			ipcRenderer
-		} = require('electron');
-
-		ipcRenderer.on('key', (event, arg) => {
-			console.log('render,key', event, arg);
+		ipcRenderer.on('workMessage', (event, data) => {
+			console.log('got workMessage:', data);
 		});
 
 	});
@@ -18,9 +18,7 @@
 	function bindHandlers() {
 
 		$('#run').click(function() {
-			const remote = require('electron').remote;
-			var run = remote.require('./node/run');
-			run({
+			var config = {
 				userName: 'zs',
 				// win: remote.getCurrentWindow(),
 				instanceConfig: [{
@@ -33,7 +31,9 @@
 					proxyUserName: null,
 					proxyPassword: null,
 				}],
-			});
+			};
+
+			ipcRenderer.send('command', config);
 		});
 	}
 

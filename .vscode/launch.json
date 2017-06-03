@@ -9,9 +9,9 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "cwd": "${workspaceRoot}",
+            "cwd": "${workspaceRoot}\\src\\client\\ui",
             "runtimeExecutable": "C:\\Users\\zhanganzhong.NETBRAIN\\AppData\\Roaming\\npm\\electron.cmd",
-            "program": "${workspaceRoot}\\main.js"
+            "program": "${workspaceRoot}\\src\\client\\ui\\main.js"
         }
     ]
 }
