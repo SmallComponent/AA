@@ -10,6 +10,8 @@ import {run} from './run';
 export class AppComponent {
     title = 'app works!';
 
+    status = '';
+
     configs = [];
     configsDic = {};
 
@@ -29,12 +31,13 @@ export class AppComponent {
 			console.log('got status:', data);
 			let config = this.configsDic[data.id];
 			config.status = data.status;
-
+			this.status = data.status;
             // this.configs = this.configs.map(config => config);
 		});
 	}
 
     run() {
+        this.status = 'start...';
         this.configs = this.getConfigs();
 		this.initConfigsDic();
 

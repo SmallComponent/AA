@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
     name: 'flying',
 })
 export class FlyingPipe implements PipeTransform {
-    transform(configs): number {
+    transform(configs: any[]): any[] {
 		console.log('pipe...');
         return configs;
     }
