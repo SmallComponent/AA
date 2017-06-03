@@ -46,6 +46,7 @@ export class AppComponent {
 				config.status = data.status;
 				self.status = data.status;
                 self.theObserver.next(this.configs);
+                $('#results').click();
 			});
             // this.configs = this.configs.map(config => config);
 		});
