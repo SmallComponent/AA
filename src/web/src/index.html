@@ -4,7 +4,55 @@
   <head>
     <meta charset="utf-8">
     <title>AA</title>
+
     <!-- <base href="/"> -->
+
+    <script type="text/javascript">
+      window.nodeRequire = require;
+      // window.nodeExports = exports;
+      window.nodeModule = module;
+      delete window.require;
+      // delete window.exports;
+      delete window.module;
+    </script>
+
+
+    <script type="text/javascript">
+      window.require = nodeRequire;
+      // window.exports = nodeExports;
+      window.module = nodeModule;
+      delete window.nodeRequire;
+      // delete window.nodeExports;
+      delete window.nodeModule;
+    </script>
+
+    <!-- <script type="text/javascript" src="./js/index.js">
+    </script> -->
+
+    <script type="text/javascript">
+      const {
+        ipcRenderer
+      } = require('electron');
+
+      ;
+      (function() {
+
+        ipcRenderer.on('log', (event, data) => {
+          console.log('got log:', data);
+        });
+        ipcRenderer.on('error', (event, data) => {
+          console.log('got error:', data);
+        });
+        ipcRenderer.on('result', (event, data) => {
+          console.log('got result:', data);
+        });
+
+        ipcRenderer.on('status', (event, data) => {
+          console.log('got status:', data);
+        });
+
+      })();
+    </script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">

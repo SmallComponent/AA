@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import {run} from './run';
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -9,7 +11,6 @@ export class AppComponent {
     title = 'app works!';
 
     run() {
-		console.log('runing...');
-        console.log(process);
+		run();
     }
 }
