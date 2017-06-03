@@ -19,7 +19,7 @@
 
 		$('#run').click(function() {
 			const remote = require('electron').remote;
-			var run = remote.require('./run');
+			var run = remote.require('./node/run');
 			run({
 				userName: 'zs',
 				// win: remote.getCurrentWindow(),

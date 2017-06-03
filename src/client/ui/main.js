@@ -11,9 +11,9 @@ return void(0);
 
 function init() {
 	app.on('ready', function() {
-		let mainWindow = require('./mainWindow');
+		let mainWindow = require('./node/mainWindow');
 		mainWindow.loadURL(url.format({
-			pathname: 'index.html',
+			pathname: './browser/index.html',
 			// pathname: './pages/index.html',
 			protocol: 'file:',
 			slashes: true
