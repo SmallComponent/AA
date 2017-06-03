@@ -21,7 +21,7 @@
 			var config = {
 				userName: 'zs',
 				// win: remote.getCurrentWindow(),
-				instanceConfig: [{
+				instanceConfigs: [{
 					id: 1,
 					userName: 'abc@163.com',
 					password: 'abc123',
