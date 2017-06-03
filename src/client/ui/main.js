@@ -51,10 +51,8 @@ function bindRenderAndWorkerMessage(mainWindow, workProcess) {
 	});
 
 	ipcMain.on('command', function(event, data) {
-		var result = workProcess.stdin.write(JSON.stringify(data), function() {
-			console.log('write callback', arguments);
-		});
-		console.log('write result:', result);
+		console.log('got command:', data);
+		var result = workProcess.stdin.write(JSON.stringify(data));
 	})
 }
 
