@@ -35,7 +35,7 @@ function createCurl(context) {
 	}
 
 	context.curl = curl;
-	curl.context = context;
+	// curl.context = context;
 
 	appendHttpMethod(context);
 
@@ -123,7 +123,7 @@ function bindErrorHandler(context) {
 
 function httpGet(url, callback) {
 	logger.log({
-		id: this.context.id,
+		// id: this.context.id,
 		action: 'get',
 		url: url,
 	});
@@ -137,7 +137,7 @@ function httpGet(url, callback) {
 
 function httpPost(url, data) {
 	logger.log({
-		id: this.context.id,
+		// id: this.context.id,
 		action: 'post',
 		url: url,
 		data: data,

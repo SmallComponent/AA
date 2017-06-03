@@ -5,7 +5,7 @@
   <button (click)="run()">run</button>
 </div>
 
-<div>
+<div (click)="refresh()">
   <table border="1">
     <tr>
       <th>userName</th>
@@ -16,7 +16,7 @@
       <th>proxyPassword</th>
       <th>status</th>
     </tr>
-    <tr *ngFor="let config of configs | flying">
+    <tr *ngFor="let config of configsObservable | async | flying">
       <td>{{config.userName}}</td>
       <td>{{config.productUrl}}</td>
       <td>{{config.size}}</td>

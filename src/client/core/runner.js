@@ -28,18 +28,18 @@ function start(context) {
 		// .then(pay)
 		.then(context => {
 			context.status = 'success';
-			logger.result({
+			logger.status({
 				id: context.id,
-				result: 'success',
+				status: 'success',
 			});
 			return context;
 		})
 		.catch(reason => {
 			context.status = 'failed:' + reason;
-			logger.result({
+			logger.status({
 				id: context.id,
-				result: 'failed',
-				reason: reason.toString(),
+				status: 'failed',
+				reason: JSON.stringify(reason),
 			});
 			return context;
 		});
