@@ -49,8 +49,9 @@ function createWindow() {
 	});
 
 	win.webContents.on('did-finish-load', function() {
-		win.webContents.send('key', {
-			name: 'zs',
-		});
+		// win.webContents.send('key', {
+		// 	name: 'zs',
+		// });
 	});
+
 }

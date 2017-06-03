@@ -8,10 +8,10 @@ const {
 module.exports = run;
 
 function run(config) {
-	console.log('runing...', config);
+	// console.log('runing...', config);
 	// useSpawn();
-	// useExec();
-	useFork();
+	useExec(config);
+	// useFork();
 }
 
 function useFork() {
@@ -28,18 +28,27 @@ function useFork() {
 	})
 }
 
-function useExec() {
-	var exec = require('child_process').exec;
+function useExec(config) {
+	var win = config.win;
 	var child = exec('node ./../index.js');
 
 	child.stdout.on('data', function(data) {
-		console.log('stdout: ' + data);
+		// console.log('stdout: ' + data);
+		win.webContents.send('key', {
+			data: data,
+		});
 	});
 	child.stderr.on('data', function(data) {
-		console.log('stdout: ' + data);
+		// console.log('stdout: ' + data);
+		win.webContents.send('key', {
+			data: data,
+		});
 	});
 	child.on('close', function(code) {
-		console.log('closing code: ' + code);
+		// console.log('closing code: ' + code);
+		win.webContents.send('key', {
+			data: code,
+		});
 	});
 }
 

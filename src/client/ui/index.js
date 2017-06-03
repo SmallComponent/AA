@@ -23,6 +23,7 @@
 			var run = remote.require('./run');
 			run({
 				userName: 'zs',
+				win: remote.getCurrentWindow(),
 			});
 		});
 	}
