@@ -9,6 +9,7 @@
   "author": "",
   "license": "",
   "dependencies": {
-    "koa": "^2.2.0"
+    "koa": "^2.2.0",
+    "koa-static": "^3.0.0"
   }
 }

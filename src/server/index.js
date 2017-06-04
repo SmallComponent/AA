@@ -1,8 +1,9 @@
-var Koa = require('koa');
-var app = new Koa();
+const koaStatic = require('koa-static');
+const Koa = require('koa');
 
-app.use(function*() {
-	this.body = 'Hello World';
-});
+const app = new Koa();
+
+app.use(koaStatic('./static'));
 
 app.listen(3000);
+console.log('listening on port 3000');

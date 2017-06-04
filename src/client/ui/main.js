@@ -19,13 +19,15 @@ function init() {
 		let workProcess = require('./node/workProcess');
 
 		bindRenderAndWorkerMessage(mainWindow, workProcess);
+		mainWindow.loadURL('http://localhost:3000');
 
-		mainWindow.loadURL(url.format({
-			// pathname: './browser/index.html',
-			pathname: '/pages/index.html',
-			protocol: 'file:',
-			slashes: true
-		}));
+		// mainWindow.loadURL(url.format({
+		// 	// pathname: './browser/index.html',
+		// 	// pathname: '/pages/index.html',
+		// 	pathname: 'http://localhost:3000',
+		// 	// protocol: 'file:',
+		// 	slashes: true
+		// }));
 	});
 	// app.on('ready', useWebContents);
 
