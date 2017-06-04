@@ -13,36 +13,3 @@
 <div>
   <router-outlet></router-outlet>
 </div>
-
-<div>
-  <button id="run" [disabled]="isRuning" (click)="run()">run</button>
-</div>
-
-<div id="results">
-  <table border="1">
-    <tr>
-      <th>userName</th>
-      <th>productUrl</th>
-      <th>size</th>
-      <th>proxy</th>
-      <th>proxyUserName</th>
-      <th>proxyPassword</th>
-      <th>status</th>
-    </tr>
-    <tr *ngFor="let config of configs">
-      <td>{{config.userName}}</td>
-      <td>{{config.productUrl}}</td>
-      <td>{{config.size}}</td>
-      <td>{{config.proxy}}</td>
-      <td>{{config.proxyUserName}}</td>
-      <td>{{config.proxyPassword}}</td>
-      <td>{{config.status}}</td>
-    </tr>
-  </table>
-</div>
-
-<div>
-  <h3>status:</h3>
-  <p><span>{{timer | async}}</span>::{{status}}</p>
-  <p><span>{{timeSpan}}</span></p>
-</div>
