@@ -6,7 +6,7 @@ import { Config } from './../../models/config';
 import { Context } from './../../models/context';
 import { ContextService } from './../../services/context.service';
 
-const csvHeader = `id,userName,password,productUrl,size,proxy,proxyUserName,proxyPassword,status`;
+const csvHeader = `userName,password,productUrl,size,proxy,proxyUserName,proxyPassword,status`;
 const example = `abc@163.com,abc123,http://www.adidas.com.cn/cg5804,42,http://61.191.41.130:80,,`;
 
 @Component({
@@ -29,16 +29,20 @@ ${example}`;
 		this.contextService.getContext()
 			.then(context => {
 				this.context = context;
-				this.defaultInputs = this.toCsv(context.instanceConfigs);
+				let configsCopy = JSON.parse(JSON.stringify(context.instanceConfigs));
+				configsCopy.forEach(config => delete config.id);
+				this.defaultInputs = this.toCsv(configsCopy);
 			});
 	}
 
 	import() {
 		try {
 			let configs = this.fromCsv(this.defaultInputs);
+			configs.forEach((config, index) => config.id = index + 1);
 			console.log(configs);
 			this.context.instanceConfigs = configs;
-		} catch (ex) {
+		} catch (error) {
+			console.error(error);
 			alert('请检查csv格式，若值中有“，”需要使用双引号');
 		}
 	}

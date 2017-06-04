@@ -1,5 +1,5 @@
 exports.run = run;
 
-function run(config) {
-	electron.ipcRenderer.send('command', config);
+function run(context) {
+	electron.ipcRenderer.send('command', context);
 }

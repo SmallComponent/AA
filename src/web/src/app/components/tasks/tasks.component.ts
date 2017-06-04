@@ -1,6 +1,7 @@
 import {
     Component,
-	OnInit
+	OnInit,
+    OnDestroy,
 } from '@angular/core';
 
 import {
@@ -19,7 +20,7 @@ import { ContextService } from './../../services/context.service';
 	templateUrl: './tasks.component.html',
 	styleUrls: ['./tasks.component.css']
 })
-export class TasksComponent implements OnInit {
+export class TasksComponent implements OnInit, OnDestroy {
 
 	isRuning = false;
 
@@ -36,9 +37,7 @@ export class TasksComponent implements OnInit {
 
 	constructor(
         private contextService: ContextService,
-    ) {
-		this.bindEventHandlers();
-	}
+    ) { }
 
 
 	ngOnInit() {
@@ -47,8 +46,17 @@ export class TasksComponent implements OnInit {
                 this.context = context
                 this.initConfigsDic();
             });
+		this.bindEventHandlers();
     }
 
+	ngOnDestroy() {
+        const ipcRenderer = electron.ipcRenderer;
+
+        ipcRenderer.removeAllListeners('log');
+        ipcRenderer.removeAllListeners('error');
+        ipcRenderer.removeAllListeners('result');
+        ipcRenderer.removeAllListeners('status');
+	}
 
 	bindEventHandlers() {
 		const ipcRenderer = electron.ipcRenderer;
