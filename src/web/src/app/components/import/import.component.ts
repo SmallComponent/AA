@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import csvjson from './csvjson';
+import csvjson from './../../../js/libs/csvjson/index';
 
 import { Config } from './../../models/config';
 import { Context } from './../../models/context';

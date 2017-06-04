@@ -9,7 +9,7 @@ import {
 	BehaviorSubject
 } from 'rxjs';
 
-import { run } from './run';
+import { run } from './../../../js/run';
 
 import { Config } from './../../models/config';
 import { Context } from './../../models/context';
