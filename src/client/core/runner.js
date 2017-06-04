@@ -30,6 +30,7 @@ function start(context) {
 			context.status = 'success';
 			logger.status({
 				id: context.id,
+				url: context.curl.url,
 				status: 'success',
 			});
 			return context;
@@ -39,6 +40,7 @@ function start(context) {
 			logger.status({
 				id: context.id,
 				status: 'failed',
+				url: context.curl.url,
 				reason: JSON.stringify(reason),
 			});
 			return context;

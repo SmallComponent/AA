@@ -110,6 +110,7 @@ function bindErrorHandler(context) {
 	curl.on('error', function(error) {
 		logger.error({
 			id: context.id,
+			url: context.curl.url,
 			error: error,
 		});
 		if(curl.error) {
@@ -142,6 +143,7 @@ function httpPost(url, data) {
 		url: url,
 		data: data,
 	});
+
 	this.url = url;
 
 	this.setOpt(Curl.option.URL, url);

@@ -22,10 +22,6 @@ function getConfigs(ctx, next) {
 				data: configs,
 			};
 		});
-
-	// ctx.mongo.db('test').collection('users').remove({
-	// 	// _id: mongo.ObjectId(userId)
-	// });
 }
 
 function saveConfigs(ctx, next) {
@@ -36,15 +32,20 @@ function saveConfigs(ctx, next) {
 		delete config.id;
 	});
 
-
 	return ctx.mongo
 		.db(dbName)
 		.collection(collectionName)
-		.insert(configs)
-		.then(result => {
-			ctx.body = {
-				data: result.result.ok,
-			};
+		.remove({})
+		.then(() => {
+			return ctx.mongo
+				.db(dbName)
+				.collection(collectionName)
+				.insert(configs)
+				.then(result => {
+					ctx.body = {
+						data: result.result.ok,
+					};
+				});
 		});
 }
 

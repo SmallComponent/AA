@@ -39,7 +39,6 @@ ${example}`;
 		try {
 			let configs = this.fromCsv(this.defaultInputs);
 			configs.forEach((config, index) => config.id = index + 1);
-			console.log(configs);
 			this.context.instanceConfigs = configs;
 			this.contextService
 				.saveContext(this.context)
