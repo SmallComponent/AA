@@ -8,6 +8,8 @@ import {
 	BehaviorSubject
 } from 'rxjs';
 
+import { run } from './run';
+
 @Component({
 	selector: 'app-tasks',
 	templateUrl: './tasks.component.html',

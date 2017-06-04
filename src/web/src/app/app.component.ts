@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 
-import {run} from './run';
-
 @Component({
     // moduleId: module.id,
     selector: 'app-root',
