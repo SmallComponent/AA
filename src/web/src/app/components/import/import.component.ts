@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
-import json2csv from './json2csv';
 import csvjson from './csvjson';
 
 import { Config } from './../../models/config';
 import { Context } from './../../models/context';
 import { ContextService } from './../../services/context.service';
 
-const csvHeader = `userName,password,productUrl,size,proxy,proxyUserName,proxyPassword`;
+const csvHeader = `id,userName,password,productUrl,size,proxy,proxyUserName,proxyPassword,status`;
+const example = `abc@163.com,abc123,http://www.adidas.com.cn/cg5804,42,http://61.191.41.130:80,,`;
 
 @Component({
 	selector: 'app-import',
@@ -17,7 +17,9 @@ const csvHeader = `userName,password,productUrl,size,proxy,proxyUserName,proxyPa
 export class ImportComponent implements OnInit {
 
 	defaultInputs = `${csvHeader}
-abc@163.com,abc123,http://www.adidas.com.cn/cg5804,42,http://61.191.41.130:80,,`;
+${example}`;
+
+	private context: Context;
 
 	constructor(
 		private contextService: ContextService,
@@ -26,8 +28,19 @@ abc@163.com,abc123,http://www.adidas.com.cn/cg5804,42,http://61.191.41.130:80,,`
 	ngOnInit() {
 		this.contextService.getContext()
 			.then(context => {
-				this.defaultInputs = csvjson.toCSV(context.instanceConfigs);
+				this.context = context;
+				this.defaultInputs = this.toCsv(context.instanceConfigs);
 			});
+	}
+
+	import() {
+		try {
+			let configs = this.fromCsv(this.defaultInputs);
+			console.log(configs);
+			this.context.instanceConfigs = configs;
+		} catch (ex) {
+			alert('请检查csv格式，若值中有“，”需要使用双引号');
+		}
 	}
 
 	toCsv(obj) {
@@ -36,8 +49,7 @@ abc@163.com,abc123,http://www.adidas.com.cn/cg5804,42,http://61.191.41.130:80,,`
 	}
 
 	fromCsv(csv) {
-		let option = this.getOption();
-		return csvjson.toObject(csv, option);
+		return csvjson.toObject(csv);
 	}
 
 	getOption() {
@@ -48,10 +60,6 @@ abc@163.com,abc123,http://www.adidas.com.cn/cg5804,42,http://61.191.41.130:80,,`
 			wrap: false,
 			ignoreDenote: true,
 		};
-	}
 
-	import() {
-		console.log(this.defaultInputs);
 	}
-
 }
