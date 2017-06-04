@@ -12,6 +12,8 @@ export class AppComponent {
     title = 'app works!';
 
     status = '';
+    start: number | string = '';
+    timeSpan: number | string = '';
 
     configs = [];
     configsDic = {};
@@ -19,28 +21,38 @@ export class AppComponent {
     timer = Observable.interval(100);
 
 	constructor() {
-		const ipcRenderer = electron.ipcRenderer;
+		this.bindEventHandlers();
+	}
 
-		ipcRenderer.on('log', (event, data) => {
-			console.log('got log:', data);
-		});
-		ipcRenderer.on('error', (event, data) => {
-			console.log('got error:', data);
-		});
-		ipcRenderer.on('result', (event, data) => {
-			console.log('got result:', data);
-		});
+    bindEventHandlers() {
+        const ipcRenderer = electron.ipcRenderer;
 
-		ipcRenderer.on('status', (event, data) => {
+        ipcRenderer.on('log', (event, data) => {
+            console.log('got log:', data);
+        });
+        ipcRenderer.on('error', (event, data) => {
+            console.log('got error:', data);
+        });
+        ipcRenderer.on('result', (event, data) => {
+            console.log('got result:', data);
+            if (data.action === 'done') {
+                this.timeSpan = Date.now() - this.start;
+                $('#run').removeAttr('disabled');
+            }
+        });
+
+        ipcRenderer.on('status', (event, data) => {
             console.log('got status:', data);
             let config = this.configsDic[data.id];
             config.status = data.status;
             this.status = data.status;
-		});
-
-	}
+        });
+    }
 
     run() {
+		$('#run').attr('disabled', 'disabled');
+		this.start = Date.now();
+
         this.status = 'start...';
         this.configs = this.getConfigs();
 		this.initConfigsDic();
@@ -75,8 +87,8 @@ export class AppComponent {
             status: 'xxx',
 		}, {
 				id: 2,
-				userName: 'abc@163.com',
-				password: 'abc123',
+				userName: 'abcd@163.com',
+				password: 'abcd163',
 				productUrl: 'http://www.adidas.com.cn/cg5804',
 				size: 42,
 				proxy: 'http://61.191.41.130:80',

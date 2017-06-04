@@ -2,7 +2,7 @@
   {{title}}
 </h1>
 <div>
-  <button (click)="run()">run</button>
+  <button id="run" (click)="run()">run</button>
 </div>
 
 <div id="results">
@@ -30,6 +30,6 @@
 
 <div>
   <h3>status:</h3>
-  <p>{{status}}</p>
-  <p>{{timer | async}}</p>
+  <p><span>{{timer | async}}</span>::{{status}}</p>
+  <p><span>{{timeSpan}}</span></p>
 </div>
