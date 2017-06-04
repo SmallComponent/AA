@@ -10,6 +10,7 @@ import {
 
 import { run } from './run';
 
+import { Context } from './../../models/context';
 import { ContextService } from './../../services/context.service';
 
 @Component({
@@ -26,7 +27,9 @@ export class TasksComponent implements OnInit {
 	timeSpan: number | string = '';
 
 	configs = [];
-	configsDic = {};
+    context: Context;
+
+	private configsDic = {};
 
 	timer = Observable.interval(100);
 
@@ -37,7 +40,13 @@ export class TasksComponent implements OnInit {
 	}
 
 
-	ngOnInit() { }
+	ngOnInit() {
+		this.contextService.getContext()
+			.then(context => {
+                this.context = context
+                this.initConfigsDic();
+            });
+    }
 
 
 	bindEventHandlers() {
@@ -66,53 +75,24 @@ export class TasksComponent implements OnInit {
 		});
 	}
 
+    getConfigs() {
+        return this.context && this.context.instanceConfigs
+			|| [];
+    }
+
 	run() {
 		this.isRuning = true;
-		// $('#run').attr('disabled', 'disabled');
 		this.start = Date.now();
-
 		this.status = 'start...';
-		this.configs = this.getConfigs();
-		this.initConfigsDic();
-
-		let config = {
-			userName: 'zs',
-			// win: remote.getCurrentWindow(),
-			instanceConfigs: this.configs,
-		};
-
-		run(config);
+		run(this.context);
 	}
 
 	initConfigsDic() {
 		let configsDic =
 			this.configsDic = {};
-		this.configs.forEach(
+		this.context.instanceConfigs.forEach(
 			config => configsDic[config.id] = config
 		);
-	}
-
-	getConfigs() {
-		return [{
-			id: 1,
-			userName: 'abc@163.com',
-			password: 'abc123',
-			productUrl: 'http://www.adidas.com.cn/cg5804',
-			size: 42,
-			proxy: 'http://61.191.41.130:80',
-			proxyUserName: null,
-			proxyPassword: null,
-			status: 'xxx',
-		}, {
-				id: 2,
-				userName: 'abcd@163.com',
-				password: 'abcd163',
-				productUrl: 'http://www.adidas.com.cn/cg5804',
-				size: 42,
-				proxy: 'http://61.191.41.130:80',
-				proxyUserName: null,
-				proxyPassword: null,
-			}];
 	}
 
 }

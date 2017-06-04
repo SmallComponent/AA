@@ -1,4 +1,3 @@
-
 <div>
   <button id="run" [disabled]="isRuning" (click)="run()">run</button>
 </div>
@@ -14,7 +13,7 @@
       <th>proxyPassword</th>
       <th>status</th>
     </tr>
-    <tr *ngFor="let config of configs">
+    <tr *ngFor="let config of getConfigs()">
       <td>{{config.userName}}</td>
       <td>{{config.productUrl}}</td>
       <td>{{config.size}}</td>
