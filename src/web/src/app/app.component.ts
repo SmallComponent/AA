@@ -11,6 +11,8 @@ import {run} from './run';
 export class AppComponent {
     title = 'app works!';
 
+    isRuning = false;
+
     status = '';
     start: number | string = '';
     timeSpan: number | string = '';
@@ -37,7 +39,8 @@ export class AppComponent {
             console.log('got result:', data);
             if (data.action === 'done') {
                 this.timeSpan = Date.now() - this.start;
-                $('#run').removeAttr('disabled');
+                // $('#run').removeAttr('disabled');
+                this.isRuning = false;
             }
         });
 
@@ -50,7 +53,8 @@ export class AppComponent {
     }
 
     run() {
-		$('#run').attr('disabled', 'disabled');
+		this.isRuning = true;
+		// $('#run').attr('disabled', 'disabled');
 		this.start = Date.now();
 
         this.status = 'start...';
