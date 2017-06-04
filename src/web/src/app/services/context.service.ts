@@ -9,6 +9,7 @@ export class ContextService {
 	constructor() { }
 
 	getContext(): Promise<Context> {
+
 		return Promise.resolve(context);
 	}
 

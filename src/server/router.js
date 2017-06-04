@@ -1,8 +1,7 @@
 var router = require('koa-router')();
 
-router.get('/hi', function(ctx, next) {
-	ctx.body = 'Hello World!';
-	next();
-});
+var config = require('./modules/config');
+
+router.get('/configs', config.getConfigs);
 
 module.exports = router;
