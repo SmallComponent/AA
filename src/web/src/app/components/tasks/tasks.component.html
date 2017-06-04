@@ -1,5 +1,5 @@
 <div>
-  <button id="run" [disabled]="isRuning" (click)="run()">run</button>
+  <button id="run" [disabled]="context.isRuning" (click)="run()">run</button>
 </div>
 
 <div id="results">
@@ -27,6 +27,6 @@
 
 <div>
   <h3>status:</h3>
-  <p><span>{{timer | async}}</span>::{{status}}</p>
-  <p><span>{{timeSpan}}</span></p>
+  <p><span>{{timer | async}}</span>::{{context.status}}</p>
+  <p><span>{{context.timeSpan}}</span></p>
 </div>

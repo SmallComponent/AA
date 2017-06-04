@@ -16,10 +16,10 @@ const example = `abc@163.com,abc123,http://www.adidas.com.cn/cg5804,42,http://61
 })
 export class ImportComponent implements OnInit {
 
-	defaultInputs = `${csvHeader}
+	private defaultInputs = `${csvHeader}
 ${example}`;
 
-	private context: Context;
+	context: Context = new Context();
 
 	constructor(
 		private contextService: ContextService,

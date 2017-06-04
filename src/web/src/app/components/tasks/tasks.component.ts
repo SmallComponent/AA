@@ -21,17 +21,7 @@ import { ContextService } from './../../services/context.service';
 	styleUrls: ['./tasks.component.css']
 })
 export class TasksComponent implements OnInit, OnDestroy {
-
-	isRuning = false;
-
-	status = '';
-	start: number | string = '';
-	timeSpan: number | string = '';
-
-	configs = [];
-    context: Context;
-
-	private configsDic = {};
+    context: Context = new Context();
 
 	timer = Observable.interval(100);
 
@@ -44,7 +34,6 @@ export class TasksComponent implements OnInit, OnDestroy {
 		this.contextService.getContext()
 			.then(context => {
                 this.context = context
-                this.initConfigsDic();
             });
 		this.bindEventHandlers();
     }
@@ -59,6 +48,8 @@ export class TasksComponent implements OnInit, OnDestroy {
 	}
 
 	bindEventHandlers() {
+        let self = this;
+
 		const ipcRenderer = electron.ipcRenderer;
 
 		ipcRenderer.on('log', (event, data) => {
@@ -70,17 +61,18 @@ export class TasksComponent implements OnInit, OnDestroy {
 		ipcRenderer.on('result', (event, data) => {
 			console.log('got result:', data);
 			if (data.action === 'done') {
-				this.timeSpan = Date.now() - this.start;
-				// $('#run').removeAttr('disabled');
-				this.isRuning = false;
+				self.context.timeSpan = Date.now() - self.context.startTime;
+				self.context.isRuning = false;
 			}
 		});
 
 		ipcRenderer.on('status', (event, data) => {
 			console.log('got status:', data);
-			let config = this.configsDic[data.id];
-			config.status = data.status;
-			this.status = data.status;
+			let config = self.context.getConfigById(data.id);
+            if (config) {
+				config.status = data.status;
+			}
+            self.context.status = data.status;
 		});
 	}
 
@@ -90,18 +82,12 @@ export class TasksComponent implements OnInit, OnDestroy {
     }
 
 	run() {
-		this.isRuning = true;
-		this.start = Date.now();
-		this.status = 'start...';
+		this.context.isRuning = true;
+		this.context.startTime = Date.now();
+		this.context.status = 'start...';
 		run(this.context);
 	}
 
-	initConfigsDic() {
-		let configsDic =
-			this.configsDic = {};
-		this.context.instanceConfigs.forEach(
-			config => configsDic[config.id] = config
-		);
-	}
+
 
 }
