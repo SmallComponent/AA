@@ -10,6 +10,7 @@ import {
 
 import { run } from './run';
 
+import { Config } from './../../models/config';
 import { Context } from './../../models/context';
 import { ContextService } from './../../services/context.service';
 
@@ -75,7 +76,7 @@ export class TasksComponent implements OnInit {
 		});
 	}
 
-    getConfigs() {
+    getConfigs(): Config[] {
         return this.context && this.context.instanceConfigs
 			|| [];
     }
