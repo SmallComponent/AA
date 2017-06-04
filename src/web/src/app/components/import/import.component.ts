@@ -41,6 +41,12 @@ ${example}`;
 			configs.forEach((config, index) => config.id = index + 1);
 			console.log(configs);
 			this.context.instanceConfigs = configs;
+			this.contextService
+				.saveContext(this.context)
+				.subscribe(
+				isSuccess => alert('save ' + (isSuccess ? 'success' : 'failed')),
+				err => alert('error: ' + JSON.stringify(err)),
+			);
 		} catch (error) {
 			console.error(error);
 			alert('请检查csv格式，若值中有“，”需要使用双引号');

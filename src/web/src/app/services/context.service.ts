@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response  } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -14,23 +14,40 @@ export class ContextService {
 
 	constructor(private http: Http) { }
 
+	saveContext(context): Observable<boolean> {
+		let headers = new Headers({
+			'Content-Type': 'application/json'
+		});
+		let options = new RequestOptions({ headers: headers });
+		let data = { data: context.instanceConfigs };
+
+		return this.http
+			.post(this.getConfigsUrl, data, options)
+			.map(this.extractData)
+			.catch(this.handleError);
+	}
+
 	getContext(): Observable<Context> {
 		// return Promise.resolve(context);
 
 		return this.http
 			.get(this.getConfigsUrl)
 			.map(this.extractData)
+			.map(this.convertToContext)
 			.catch(this.handleError);
 	}
-	private extractData(response: Response) {
+
+	private convertToContext(configs): Context {
 		let context = new Context('abc163');
-
-		let body = response.json();
-		let configs = body.data || [];
-		context.instanceConfigs = configs;
-
+		context.instanceConfigs = configs || [];
 		return context;
 	}
+
+	private extractData(response: Response) {
+		let body = response.json();
+		return body.data;
+	}
+
 	private handleError(error: Response | any) {
 		// In a real world app, you might use a remote logging infrastructure
 		let errMsg: string;
