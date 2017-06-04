@@ -10,6 +10,8 @@ import {
 
 import { run } from './run';
 
+import { ContextService } from './../../services/context.service';
+
 @Component({
 	selector: 'app-tasks',
 	templateUrl: './tasks.component.html',
@@ -28,7 +30,9 @@ export class TasksComponent implements OnInit {
 
 	timer = Observable.interval(100);
 
-	constructor() {
+	constructor(
+        private contextService: ContextService,
+    ) {
 		this.bindEventHandlers();
 	}
 

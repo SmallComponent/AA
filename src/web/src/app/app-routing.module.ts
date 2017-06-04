@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 
 import { Routes, RouterModule, PreloadAllModules, }     from '@angular/router';
 
+import { ContextService } from './services/context.service';
+
 import { LoginComponent } from './components/login/login.component';
 import { TasksComponent } from './components/tasks/tasks.component';
 import { ImportComponent } from './components/import/import.component';
@@ -37,6 +39,8 @@ const appRoutes: Routes = [{
     exports: [
         RouterModule,
     ],
-    providers: [],
+    providers: [
+		ContextService,
+	],
 })
 export class AppRoutingModule { }

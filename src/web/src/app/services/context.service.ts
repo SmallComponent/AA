@@ -3,7 +3,18 @@ import { Injectable } from '@angular/core';
 import {Config} from './../models/config';
 import {Context} from '../models/context';
 
-const context: Context = {
+@Injectable()
+export class ContextService {
+
+	constructor() { }
+
+	getContext(): Promise<Context> {
+		return Promise.resolve(CONTEXT);
+	}
+
+}
+
+const CONTEXT: Context = {
 	userName: 'zs',
 	instanceConfigs: [{
 		id: 1,
@@ -26,10 +37,3 @@ const context: Context = {
 			proxyPassword: null,
 		},],
 };
-
-@Injectable()
-export class ContextService {
-
-	constructor() { }
-
-}
