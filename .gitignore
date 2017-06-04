@@ -1,4 +1,5 @@
 */**/node_modules/**/*
 /src/client/ui/pages/
 /src/web/dist/
+/src/server/static/**/*
 /log/**/*
