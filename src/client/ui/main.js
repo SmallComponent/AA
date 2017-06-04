@@ -22,7 +22,7 @@ function init() {
 
 		mainWindow.loadURL(url.format({
 			// pathname: './browser/index.html',
-			pathname: './pages/index.html',
+			pathname: '/pages/index.html',
 			protocol: 'file:',
 			slashes: true
 		}));

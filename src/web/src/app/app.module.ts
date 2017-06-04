@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { FlyingPipe } from './flying.pipe';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -15,7 +16,8 @@ import { AppComponent } from './app.component';
 	imports: [
 		BrowserModule,
 		FormsModule,
-		HttpModule
+		HttpModule,
+		AppRoutingModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent]
