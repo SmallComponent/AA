@@ -27,7 +27,7 @@ ${example}`;
 
 	ngOnInit() {
 		this.contextService.getContext()
-			.then(context => {
+			.subscribe(context => {
 				this.context = context;
 				let configsCopy = JSON.parse(JSON.stringify(context.instanceConfigs));
 				configsCopy.forEach(config => delete config.id);

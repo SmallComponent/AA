@@ -32,7 +32,7 @@ export class TasksComponent implements OnInit, OnDestroy {
 
 	ngOnInit() {
 		this.contextService.getContext()
-			.then(context => {
+			.subscribe(context => {
                 this.context = context
             });
 		this.bindEventHandlers();

@@ -1,16 +1,48 @@
 import { Injectable } from '@angular/core';
+import { Http, Response  } from '@angular/http';
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
 
 import {Config} from './../models/config';
 import {Context} from '../models/context';
 
 @Injectable()
 export class ContextService {
+	private getConfigsUrl = `./configs`;
 
-	constructor() { }
+	constructor(private http: Http) { }
 
-	getContext(): Promise<Context> {
+	getContext(): Observable<Context> {
+		// return Promise.resolve(context);
 
-		return Promise.resolve(context);
+		return this.http
+			.get(this.getConfigsUrl)
+			.map(this.extractData)
+			.catch(this.handleError);
+	}
+	private extractData(response: Response) {
+		let context = new Context('abc163');
+
+		let body = response.json();
+		let configs = body.data || [];
+		context.instanceConfigs = configs;
+
+		return context;
+	}
+	private handleError(error: Response | any) {
+		// In a real world app, you might use a remote logging infrastructure
+		let errMsg: string;
+		if (error instanceof Response) {
+			const body = error.json() || '';
+			const err = body.error || JSON.stringify(body);
+			errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+		} else {
+			errMsg = error.message ? error.message : error.toString();
+		}
+		console.error(errMsg);
+		return Observable.throw(errMsg);
 	}
 
 }
