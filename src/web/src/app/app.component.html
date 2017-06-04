@@ -1,6 +1,19 @@
 <h1>
   {{title}}
 </h1>
+
+<nav>
+  <a routerLink="./" routerLinkActive="active">Home</a>
+  <a routerLink="./login" routerLinkActive="active">Login</a>  
+  <a routerLink="./tasks" routerLinkActive="active">Tasks</a>
+  <a routerLink="./import" routerLinkActive="active">Import</a>
+  <a [routerLink]="[{ outlets: { popup: ['compose'] }}]">Contact</a>
+</nav>
+
+<div>
+  <router-outlet></router-outlet>
+</div>
+
 <div>
   <button id="run" [disabled]="isRuning" (click)="run()">run</button>
 </div>
@@ -32,8 +45,4 @@
   <h3>status:</h3>
   <p><span>{{timer | async}}</span>::{{status}}</p>
   <p><span>{{timeSpan}}</span></p>
-</div>
-
-<div>
-  <router-outlet></router-outlet>
 </div>
