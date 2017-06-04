@@ -1,14 +1,8 @@
 const koaStatic = require('koa-static');
 const Koa = require('koa');
+const router = require('./router');
 
 const app = new Koa();
-
-var router = require('koa-router')();
-
-router.get('/hi', function(ctx, next) {
-	ctx.body = 'Hello World!';
-	next();
-});
 
 app
 	.use(router.routes())
