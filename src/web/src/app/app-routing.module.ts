@@ -7,14 +7,18 @@ import { Routes, RouterModule, PreloadAllModules, }     from '@angular/router';
 
 import { ContextService } from './services/context.service';
 
+import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { TasksComponent } from './components/tasks/tasks.component';
 import { ImportComponent } from './components/import/import.component';
 
 const appRoutes: Routes = [{
-	path: 'login',
-	component: LoginComponent,
+	path: 'home',
+	component: HomeComponent,
 }, {
+		path: 'login',
+		component: LoginComponent,
+	}, {
 		path: 'tasks',
 		component: TasksComponent,
 	}, {
@@ -22,12 +26,13 @@ const appRoutes: Routes = [{
 		component: ImportComponent,
 	}, {
 		path: '',
-		redirectTo: '/login',
+		redirectTo: '/home',
 		pathMatch: 'full',
 	},];
 
 @NgModule({
     declarations: [
+		HomeComponent,
         LoginComponent,
         TasksComponent,
         ImportComponent,
