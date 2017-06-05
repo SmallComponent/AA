@@ -4,7 +4,10 @@ let runMulti = require('./runMulti');
 
 process.stdin.on('data', function(chunk) {
 	var configString = chunk.toString();
+
 	var config = JSON.parse(configString);
+
+	console.log(configString);
 
 	logger.log({
 		action: 'command',

@@ -1,6 +1,6 @@
 const exec = require('child_process').exec;
 
-const runMulti = require('./core/runMulti');;
+const workProcess = exec('node ./core/index.js');
 
 let context = {
 	instanceConfigs: [{
@@ -25,4 +25,10 @@ let context = {
 	}, ],
 };
 
-runMulti.run(context);
+command = JSON.stringify(context);
+
+workProcess.stdin.write(command);
+
+workProcess.stdout.on('data', function(data) {
+	console.log(data);
+});

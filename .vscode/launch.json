@@ -9,12 +9,12 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            // "cwd": "${workspaceRoot}\\src\\client\\ui",
-            // "runtimeExecutable": "C:\\Users\\zhanganzhong.NETBRAIN\\AppData\\Roaming\\npm\\electron.cmd",
-            // "program": "${workspaceRoot}\\src\\client\\ui\\main.js"
-            "cwd": "${workspaceRoot}\\src\\server",
-            "runtimeExecutable": "node",
-            "program": "${workspaceRoot}\\src\\server\\index.js"
+            "cwd": "${workspaceRoot}\\src\\client\\ui",
+            "runtimeExecutable": "C:\\Users\\zhanganzhong.NETBRAIN\\AppData\\Roaming\\npm\\electron.cmd",
+            "program": "${workspaceRoot}\\src\\client\\ui\\main.js"
+            // "cwd": "${workspaceRoot}\\src\\server",
+            // "runtimeExecutable": "node",
+            // "program": "${workspaceRoot}\\src\\server\\index.js"
         }
     ]
 }
