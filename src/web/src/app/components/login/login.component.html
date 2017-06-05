@@ -1,3 +1,14 @@
-<p>
-  login works!
-</p>
+<div class="login">
+  <div>
+    <label for="userName">userName</label>
+    <input id="userName" [(ngModel)]="user.name" type="text">
+  </div>
+  <div>
+    <label for="password">password</label>
+    <input id="password" [(ngModel)]="user.password" type="password">
+  </div>
+  <div>
+    <button [disabled]="!validate()" (click)="login()">login</button>
+    <button [disabled]="!validate()" (click)="register()">register</button>
+  </div>
+</div>
