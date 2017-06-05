@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import User from './../../models/user';
+import UserService from '../../services/context.service';
 
 @Component({
 	selector: 'app-login',
@@ -9,39 +10,34 @@ import User from './../../models/user';
 })
 export class LoginComponent implements OnInit {
 
-    user: User = {};
+    user: User = new User('', '');
 
-	constructor() { }
+	constructor(private userService: UserService) { }
 
 	ngOnInit() {
 	}
 
-	login() {
-		if (!this.validate(true)) {
+	login(): boolean {
+		if (!this.user.validate(true)) {
 			return;
 		}
 
-		alert('login:' + this.user.name);
-    }
-
-    register() {
-		if (!this.validate(true)) {
-			return;
-		}
-
-        alert('register:' + this.user.name);
+		return UserService.login(user)
+			.then(result => {
+				alert('login:', result);
+				return result;
+			});
 	}
-
-    validate(showTip: boolean = false): boolean {
-        let user = this.user;
-        let result = user.name &&
-			user.password;
-
-		if (!result && showTip) {
-			alert('name and password is required');
+	register(): boolean {
+		if (!this.user.validate(true)) {
+			return;
 		}
 
-        return result;
-    }
+		return UserService.register(user)
+			.then(result => {
+				alert('register:', result);
+				return result;
+			});
+	}
 
 }

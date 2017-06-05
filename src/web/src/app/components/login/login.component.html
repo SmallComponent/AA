@@ -8,7 +8,7 @@
     <input id="password" [(ngModel)]="user.password" type="password">
   </div>
   <div>
-    <button [disabled]="!validate()" (click)="login()">login</button>
-    <button [disabled]="!validate()" (click)="register()">register</button>
+    <button [disabled]="!user.validate()" (click)="login()">login</button>
+    <button [disabled]="!user.validate()" (click)="register()">register</button>
   </div>
 </div>

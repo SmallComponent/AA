@@ -1,8 +1,8 @@
-import { Config } from './config';
+import Config  from './config';
 
 let lodash = require('./../../js/libs/lodash/lodash');
 
-export class Context {
+export default class Context {
 	configsDic = {};
 
 	constructor(
