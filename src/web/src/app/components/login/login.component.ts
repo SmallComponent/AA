@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import User from './../../models/user';
-import UserService from '../../services/user.service';
+import {UserService} from '../../services/user.service';
 
 @Component({
 	selector: 'app-login',
@@ -12,30 +12,32 @@ export class LoginComponent implements OnInit {
 
     user: User = new User('', '');
 
-	constructor(private userService: UserService) { }
+	constructor(
+		private userService: UserService
+	) { }
 
 	ngOnInit() {
 	}
 
-	login(): boolean {
+	login(): Promise<boolean> {
 		if (!this.user.validate(true)) {
 			return;
 		}
 
-		return UserService.login(user)
+		return this.userService.login(this.user)
 			.then(result => {
-				alert('login:', result);
+				alert('login:' + result);
 				return result;
 			});
 	}
-	register(): boolean {
+	register(): Promise<boolean> {
 		if (!this.user.validate(true)) {
 			return;
 		}
 
-		return UserService.register(user)
+		return this.userService.register(this.user)
 			.then(result => {
-				alert('register:', result);
+				alert('register:' + result);
 				return result;
 			});
 	}
