@@ -20,7 +20,9 @@ export class MyHttpService {
 		let options = new RequestOptions({ headers: headers });
 
 		return this.http
-			.post(`${this.api}${subApi}`, data, options)
+			.post(`${this.api}${subApi}`, {
+				data,
+			}, options)
 			.map(this.extractData)
 			.catch(this.handleError);
 	}

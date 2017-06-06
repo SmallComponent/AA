@@ -49,23 +49,8 @@ function saveConfigs(ctx, next) {
 		});
 }
 
-// let configs = [{
-// 	id: 1,
-// 	userName: 'abc@163.com',
-// 	password: 'abc123',
-// 	productUrl: 'http://www.adidas.com.cn/cg5804',
-// 	size: 42,
-// 	proxy: 'http://61.191.41.130:80',
-// 	proxyUserName: '',
-// 	proxyPassword: '',
-// 	status: 'xxx',
-// }, {
-// 	id: 2,
-// 	userName: 'abcd@163.com',
-// 	password: 'abcd163',
-// 	productUrl: 'http://www.adidas.com.cn/cg5804',
-// 	size: 42,
-// 	proxy: 'http://61.191.41.130:80',
-// 	proxyUserName: null,
-// 	proxyPassword: null,
-// }, ];
+// userName,password,productUrl,size,proxy,proxyUserName,proxyPassword,status
+// abc@163.com,abc123,http://www.adidas.com.cn/cg5804,42,http://123.13.204.109:9999,,,xxx
+// abcd@163.com,abcd163,http://www.adidas.com.cn/cg5804,42,http://61.191.41.130:80,null,null,
+// abc@163.com,abc123,http://www.adidas.com.cn/cg5804,42,http://218.66.253.144:8800,,,xxx
+// abcd@163.com,abcd163,http://www.adidas.com.cn/cg5804,42,http://218.29.111.106:9999,null,null,
