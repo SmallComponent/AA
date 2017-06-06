@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+
 import User from './../../models/user';
 import {UserService} from '../../services/user.service';
 
@@ -30,13 +34,14 @@ export class LoginComponent implements OnInit {
 				return result;
 			});
 	}
-	register(): Promise<boolean> {
+	register(): Observable<boolean> {
 		if (!this.user.validate(true)) {
 			return;
 		}
 
-		return this.userService.register(this.user)
-			.then(result => {
+		return this.userService
+			.register(this.user)
+			.subscribe(result => {
 				alert('register:' + result);
 				return result;
 			});

@@ -11,8 +11,18 @@ export class MyHttpService {
 	constructor(
 		protected api: string,
 		protected http: Http
-	) {
+	) { }
 
+	protected postData(subApi, data) {
+		let headers = new Headers({
+			'Content-Type': 'application/json'
+		});
+		let options = new RequestOptions({ headers: headers });
+
+		return this.http
+			.post(`${this.api}${subApi}`, data, options)
+			.map(this.extractData)
+			.catch(this.handleError);
 	}
 
 	protected extractData(response: Response) {

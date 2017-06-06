@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
-
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
 
 import User from './../models/user';
 
@@ -19,8 +22,8 @@ export class UserService extends MyHttpService {
 		return Promise.resolve(true);
 	}
 
-	register(user: User): Promise<boolean> {
-		return Promise.resolve(true);
+	register(user: User): Observable<boolean> {
+		return this.postData('/register', user);
 	}
 
 }
