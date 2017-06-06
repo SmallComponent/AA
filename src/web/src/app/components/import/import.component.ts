@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import csvjson from './../../../js/libs/csvjson/index';
 import $ from './../../../js/libs/jquery/jquery';
 import gt from './../../../js/libs/gt/gt';
+import { run } from './../../../js/run';
 
 import Config  from './../../models/config';
 import Context from './../../models/context';
@@ -25,7 +26,13 @@ ${example}`;
 
 	constructor(
 		private contextService: ContextService,
-	) { }
+	) {
+		const ipcRenderer = electron.ipcRenderer;
+
+		ipcRenderer.on('taskResult', (event, data) => {
+			console.log('taskResult:', data);
+		});
+	}
 
 	ngOnInit() {
 		this.contextService.getContext()
@@ -55,22 +62,27 @@ ${example}`;
 	}
 
 	prepareValidate() {
-		$.ajax({
-			url: ' http://www.adidas.com.cn/captcha/ajax/getestStart/?t=' + (new Date()).getTime(),
-			type: 'get',
-			dataType: 'jsonp',
-			// processData: false,
-			jsonpCallback: 'callback',
-			success: data => {
-				var dataString = JSON.stringify(data, null, 4);
-				// $('#captchaData').val(dataString);
-				alert(data);
-				this.captchaData = dataString;
-			},
-			error: err => {
-				console.error(err);
-			}
-		});
+		run({
+            command: 'getValidate',
+            context: {},
+        });
+
+		// $.ajax({
+		// 	url: ' http://www.adidas.com.cn/captcha/ajax/getestStart/?t=' + (new Date()).getTime(),
+		// 	type: 'get',
+		// 	dataType: 'jsonp',
+		// 	// processData: false,
+		// 	jsonpCallback: 'callback',
+		// 	success: data => {
+		// 		var dataString = JSON.stringify(data, null, 4);
+		// 		// $('#captchaData').val(dataString);
+		// 		alert(data);
+		// 		this.captchaData = dataString;
+		// 	},
+		// 	error: err => {
+		// 		console.error(err);
+		// 	}
+		// });
 
 
 		// $.ajax({

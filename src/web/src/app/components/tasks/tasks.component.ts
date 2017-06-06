@@ -85,7 +85,10 @@ export class TasksComponent implements OnInit, OnDestroy {
 		this.context.isRuning = true;
 		this.context.startTime = Date.now();
 		this.context.status = 'start...';
-		run(this.context);
+		run({
+            command: 'run',
+            context: this.context,
+        });
 	}
 
 

@@ -3,18 +3,26 @@ const logger = require('./utils/logger');
 let runMulti = require('./runMulti');
 
 process.stdin.on('data', function(chunk) {
-	var configString = chunk.toString();
+	var taskString = chunk.toString();
 
-	var config = JSON.parse(configString);
+	var task = JSON.parse(taskString);
 
-	console.log(configString);
+	console.log(taskString);
 
 	logger.log({
 		action: 'command',
-		data: configString,
+		data: taskString,
 	});
 
-	runMulti.run(config);
+	if(task.command === 'run') {
+		runMulti.run(task.context);
+	}
+
+	if(task.command === 'getValidate') {
+		logger.log(task);
+		const getValidate = require('./getValidate');
+		getValidate(task.context);
+	}
 });
 
 process.on('uncaughtException', function(error) {

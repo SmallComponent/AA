@@ -25,7 +25,12 @@ let context = {
 	}, ],
 };
 
-command = JSON.stringify(context);
+let task = {
+	command: 'run',
+	context: context,
+}
+
+command = JSON.stringify(task);
 
 workProcess.stdin.write(command);
 

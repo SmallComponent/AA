@@ -3,6 +3,7 @@ module.exports = {
 	error,
 	result,
 	status,
+	taskResult,
 };
 
 function log(messageObject) {
@@ -23,6 +24,13 @@ function result(messageObject) {
 function status(messageObject) {
 	messageObject.type = 'status';
 	notifyUi(messageObject);
+}
+
+function taskResult(result) {
+	notifyUi({
+		type: 'taskResult',
+		result: result,
+	});
 }
 
 function notifyUi(messageObject) {
