@@ -23,13 +23,14 @@ export class LoginComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	login(): Promise<boolean> {
+	login(): Observable<boolean> {
 		if (!this.user.validate(true)) {
 			return;
 		}
 
-		return this.userService.login(this.user)
-			.then(result => {
+		return this.userService
+			.login(this.user)
+			.subscribe(result => {
 				alert('login:' + result);
 				return result;
 			});

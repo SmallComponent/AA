@@ -8,7 +8,7 @@ const collectionName = 'users';
 
 function register(ctx, next) {
 	let user = ctx.request.body.data;
-	console.log('register:', ctx.request.body);
+
 	return ctx.mongo
 		.db(dbName)
 		.collection(collectionName)
@@ -19,5 +19,14 @@ function register(ctx, next) {
 }
 
 function login(ctx, next) {
+	let user = ctx.request.body.data;
 
+	return ctx.mongo
+		.db(dbName)
+		.collection(collectionName)
+		.find(user)
+		.toArray()
+		.then(users => ctx.body = {
+			data: users,
+		});
 }

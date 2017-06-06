@@ -18,8 +18,8 @@ export class UserService extends MyHttpService {
 		super('./users', http);
 	}
 
-	login(user: User): Promise<boolean> {
-		return Promise.resolve(true);
+	login(user: User): Observable<boolean> {
+		return this.postData('/login', user);
 	}
 
 	register(user: User): Observable<boolean> {
