@@ -10,7 +10,7 @@ import {UserService} from '../../services/user.service';
 })
 export class LoginComponent implements OnInit {
 
-    user: User = new User('', '');
+    user: User = new User('x', 'x');
 
 	constructor(
 		private userService: UserService

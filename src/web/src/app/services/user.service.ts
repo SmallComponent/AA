@@ -4,10 +4,16 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 import User from './../models/user';
 
-@Injectable()
-export class UserService {
+import { MyHttpService } from './myHttp.service';
 
-	constructor(private http: Http) { }
+@Injectable()
+export class UserService extends MyHttpService {
+
+	constructor(
+		protected http: Http
+	) {
+		super('./users', http);
+	}
 
 	login(user: User): Promise<boolean> {
 		return Promise.resolve(true);
