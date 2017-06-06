@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import csvjson from './../../../js/libs/csvjson/index';
+import $ from './../../../js/libs/jquery/jquery';
+import gt from './../../../js/libs/gt/gt';
 
 import Config  from './../../models/config';
 import Context from './../../models/context';
@@ -50,6 +52,49 @@ ${example}`;
 			console.error(error);
 			alert('请检查csv格式，若值中有“，”需要使用双引号');
 		}
+	}
+
+	prepareValidate() {
+		$.ajax({
+			url: ' http://www.adidas.com.cn/captcha/ajax/getestStart/?t=' + (new Date()).getTime(),
+			type: 'get',
+			dataType: 'jsonp',
+			// processData: false,
+			jsonpCallback: 'callback',
+			success: data => {
+				var dataString = JSON.stringify(data, null, 4);
+				// $('#captchaData').val(dataString);
+				alert(data);
+				this.captchaData = dataString;
+			},
+			error: err => {
+				console.error(err);
+			}
+		});
+
+
+		// $.ajax({
+		// 	url: 'http://localhost:9977/gt/register-fullpage?t=' + (new Date()).getTime(),
+		// 	type: 'get',
+		// 	processData: false,
+		// 	dataType: 'jsonp',
+		// 	success: data => {
+		// 		var dataString = JSON.stringify(data, null, 4);
+		// 		// $('#captchaData').val(dataString);
+		// 		this.captchaData = dataString;
+		// 	},
+		// 	error: err => {
+		// 		console.error(err);
+		// 	}
+		// });
+
+
+		// $.getJSON('http://localhost:9977/gt/register-fullpage?t=' + (new Date()).getTime())
+		// 	.then(function(data) {
+		// 		var dataString = JSON.stringify(data, null, 4);
+		// 		// $('#captchaData').val(dataString);
+		// 		this.captchaData = dataString;
+		// 	});
 	}
 
 	toCsv(obj) {

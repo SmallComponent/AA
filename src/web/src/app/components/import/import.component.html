@@ -1,9 +1,11 @@
 <h2>import tasks</h2>
-
 <div>
   <textarea name="name" rows="25" cols="80" [(ngModel)]="defaultInputs"></textarea>
 </div>
-
 <div>
   <button (click)="import()">import</button>
+  <button (click)="prepareValidate()">prepare validate</button>
+</div>
+<div>
+  <textarea name="name" rows="5" cols="80" [(ngModel)]="captchaData"></textarea>
 </div>
