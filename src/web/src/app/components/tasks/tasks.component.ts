@@ -13,7 +13,7 @@ import { run } from './../../../js/run';
 
 import Config  from './../../models/config';
 import Context from './../../models/context';
-import { ContextService } from './../../services/context.service';
+import {ContextService} from './../../services/context.service';
 
 @Component({
 	selector: 'app-tasks',

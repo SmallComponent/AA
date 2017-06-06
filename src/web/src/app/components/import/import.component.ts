@@ -4,7 +4,7 @@ import csvjson from './../../../js/libs/csvjson/index';
 
 import Config  from './../../models/config';
 import Context from './../../models/context';
-import { ContextService } from './../../services/context.service';
+import {ContextService} from './../../services/context.service';
 
 const csvHeader = `userName,password,productUrl,size,proxy,proxyUserName,proxyPassword,status`;
 const example = `abc@163.com,abc123,http://www.adidas.com.cn/cg5804,42,http://61.191.41.130:80,,`;
