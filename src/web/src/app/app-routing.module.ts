@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 import { Routes, RouterModule, PreloadAllModules, }     from '@angular/router';
 
-import { ContextService } from './services/context.service';
+import {ContextService}  from './services/context.service';
 
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';

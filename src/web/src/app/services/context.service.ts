@@ -5,11 +5,11 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-import {Config} from './../models/config';
-import {Context} from '../models/context';
+import Config from './../models/config';
+import Context from '../models/context';
 
 @Injectable()
-export default class ContextService {
+export class ContextService {
 	private getConfigsUrl = `./configs`;
 
 	constructor(private http: Http) { }
