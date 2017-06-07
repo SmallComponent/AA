@@ -2,6 +2,8 @@ let jqdom = require('jqdom');
 
 let selloutKey = '售罄';
 
+const addCarUrl = 'http://www.adidas.com.cn/checkout/cart/add/';
+
 exports.addToCart = addToCart;
 
 function addToCart(context) {
@@ -16,12 +18,20 @@ function addToCart(context) {
 	let form = $('#product_addtocart_form');
 	let url = form.attr('action');
 
+	let timeString = $(".time").data('time');
+	let time = new Date(timeString.replace(',', ' '));
+
 	let token = $('[name=token]').val();
 	let productId = $('[name=product]').val();
 
 	let size = getSize();
 
-	let data = `token=${token}&isajax=yes&release2=yes&product=${productId}&super_attribute[185]=${size}&qty=1`;
+	let validateData = context.validateData;
+	let geetest_challenge = validateData.geetest_challenge;
+	let geetest_validate = validateData.geetest_validate;
+	let geetest_seccode = validateData.geetest_seccode;
+
+	let data = `token=${token}&isajax=yes&release2=yes&product=${productId}&super_attribute[185]=${size}&qty=1&geetest_challenge=${geetest_challenge}&geetest_validate=${geetest_validate}&geetest_seccode=${geetest_seccode}`;
 
 	return post();
 
