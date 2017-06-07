@@ -27,10 +27,8 @@ function status(messageObject) {
 }
 
 function taskResult(result) {
-	notifyUi({
-		type: 'taskResult',
-		result: result,
-	});
+	result.type = 'taskResult';
+	notifyUi(result);
 }
 
 function notifyUi(messageObject) {

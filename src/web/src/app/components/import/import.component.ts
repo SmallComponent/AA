@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import csvjson from './../../../js/libs/csvjson/index';
 import $ from './../../../js/libs/jquery/jquery';
@@ -17,20 +17,24 @@ const example = `abc@163.com,abc123,http://www.adidas.com.cn/cg5804,42,http://61
 	templateUrl: './import.component.html',
 	styleUrls: ['./import.component.css']
 })
-export class ImportComponent implements OnInit {
+export class ImportComponent implements OnInit, OnDestroy {
 
 	private defaultInputs = `${csvHeader}
 ${example}`;
+
+	captchaData: string;
 
 	context: Context = new Context();
 
 	constructor(
 		private contextService: ContextService,
 	) {
+		var self = this;
 		const ipcRenderer = electron.ipcRenderer;
 
 		ipcRenderer.on('taskResult', (event, data) => {
 			console.log('taskResult:', data);
+			self.captchaData = JSON.stringify(data.result);
 		});
 	}
 
@@ -42,6 +46,12 @@ ${example}`;
 				configsCopy.forEach(config => delete config.id);
 				this.defaultInputs = this.toCsv(configsCopy);
 			});
+	}
+
+	ngOnDestroy() {
+		const ipcRenderer = electron.ipcRenderer;
+
+		ipcRenderer.removeAllListeners('taskResult');
 	}
 
 	import() {
