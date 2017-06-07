@@ -31,7 +31,23 @@ function addToCart(context) {
 	let geetest_validate = validateData.geetest_validate;
 	let geetest_seccode = validateData.geetest_seccode;
 
-	let data = `token=${token}&isajax=yes&release2=yes&product=${productId}&super_attribute[185]=${size}&qty=1&geetest_challenge=${geetest_challenge}&geetest_validate=${geetest_validate}&geetest_seccode=${geetest_seccode}`;
+
+	let dataArr = [
+		['token', token],
+		['isajax', 'yes'],
+		['release2', 'yes'],
+		['product', productId],
+		['super_attribute[185]', size],
+		['qty', 1],
+		['geetest_challenge', geetest_challenge],
+		['geetest_validate', geetest_validate],
+		['geetest_seccode', geetest_seccode],
+	];
+
+	let data = dataArr.map(kv => kv.join('='))
+		.join('&');
+
+	// let data = `token=${token}&isajax=yes&release2=yes&product=${productId}&super_attribute[185]=${size}&qty=1&geetest_challenge=${geetest_challenge}&geetest_validate=${geetest_validate}&geetest_seccode=${geetest_seccode}`;
 
 	return post();
 
@@ -49,7 +65,9 @@ function addToCart(context) {
 	}
 
 	function sellout() {
-		$(`#show_product_details :contains("${selloutKey}")`).length > 0;
+		$(`#
+				show_product_details: contains("${selloutKey}")
+				`).length > 0;
 	}
 
 	function getSize() {
