@@ -19,7 +19,9 @@ function addToCart(context) {
 	let url = form.attr('action');
 
 	let timeString = $(".time").data('time');
-	let time = new Date(timeString.replace(',', ' '));
+	if(timeString) {
+		var time = new Date(timeString.replace(',', ' '));
+	}
 
 	let token = $('[name=token]').val();
 	let productId = $('[name=product]').val();
@@ -27,10 +29,11 @@ function addToCart(context) {
 	let size = getSize();
 
 	let validateData = context.validateData;
-	let geetest_challenge = validateData.geetest_challenge;
-	let geetest_validate = validateData.geetest_validate;
-	let geetest_seccode = validateData.geetest_seccode;
-
+	if(validateData) {
+		var geetest_challenge = validateData.geetest_challenge;
+		var geetest_validate = validateData.geetest_validate;
+		var geetest_seccode = validateData.geetest_seccode;
+	}
 
 	let dataArr = [
 		['token', token],
@@ -65,9 +68,7 @@ function addToCart(context) {
 	}
 
 	function sellout() {
-		$(`#
-				show_product_details: contains("${selloutKey}")
-				`).length > 0;
+		$(`#show_product_details :contains("${selloutKey}")`).length > 0;
 	}
 
 	function getSize() {
