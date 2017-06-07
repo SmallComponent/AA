@@ -20,5 +20,15 @@ function getValidate(context) {
 				task: 'getValidate',
 				result: data,
 			});
+		})
+		.catch(reason => {
+			context.status = 'failed:' + reason;
+			logger.status({
+				id: context.id,
+				status: 'failed',
+				url: context.curl.url,
+				reason: JSON.stringify(reason),
+			});
+			return context;
 		});
 }

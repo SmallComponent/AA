@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import csvjson from './../../../js/libs/csvjson/index';
 import $ from './../../../js/libs/jquery/jquery';
-import gt from './../../../js/libs/gt/gt';
+import initGeetest from './../../../js/libs/gt/gt';
 import { run } from './../../../js/run';
 
 import Config  from './../../models/config';
@@ -29,13 +29,7 @@ ${example}`;
 	constructor(
 		private contextService: ContextService,
 	) {
-		var self = this;
-		const ipcRenderer = electron.ipcRenderer;
-
-		ipcRenderer.on('taskResult', (event, data) => {
-			console.log('taskResult:', data);
-			self.captchaData = JSON.stringify(data.result);
-		});
+		this.initValidateHandler();
 	}
 
 	ngOnInit() {
@@ -53,6 +47,39 @@ ${example}`;
 
 		ipcRenderer.removeAllListeners('taskResult');
 	}
+
+	initValidateHandler() {
+		var self = this;
+		const ipcRenderer = electron.ipcRenderer;
+
+		ipcRenderer.on('taskResult', (event, data) => {
+			console.log('taskResult:', data);
+			let result = JSON.parse(data.result);
+			self.captchaData = JSON.stringify(result);
+
+			initGeetest({
+				gt: result.gt,
+				challenge: result.challenge,
+				offline: !result.success,
+				new_captcha: result.new_captcha,
+
+				product: 'float',
+				width: '300px'
+			}, function listenCaptcha(captchaObj) {
+				captchaObj.appendTo('#captcha');
+				captchaObj.onReady(function() {
+					$('#wait').hide();
+				});
+				captchaObj.onSuccess(function() {
+					var validateData = captchaObj.getValidate();
+					self.context.instanceConfigs[0].validateData = validateData;
+					var dataString = JSON.stringify(validateData, null, 4);
+					$('#captchaValidateData').val(dataString);
+				});
+			});
+		});
+	}
+
 
 	import() {
 		try {
@@ -73,9 +100,9 @@ ${example}`;
 
 	prepareValidate() {
 		run({
-            command: 'getValidate',
-            context: {},
-        });
+			command: 'getValidate',
+			context: {},
+		});
 
 		// $.ajax({
 		// 	url: ' http://www.adidas.com.cn/captcha/ajax/getestStart/?t=' + (new Date()).getTime(),
