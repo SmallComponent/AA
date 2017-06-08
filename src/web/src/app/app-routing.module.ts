@@ -12,6 +12,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { TasksComponent } from './components/tasks/tasks.component';
 import { ImportComponent } from './components/import/import.component';
+import { ValidateComponent } from './components/validate/validate.component';
 
 const appRoutes: Routes = [{
 	path: 'home',
@@ -26,6 +27,9 @@ const appRoutes: Routes = [{
 		path: 'import',
 		component: ImportComponent,
 	}, {
+		path: 'validate',
+		component: ValidateComponent,
+	}, {
 		path: '',
 		redirectTo: '/home',
 		pathMatch: 'full',
@@ -37,6 +41,7 @@ const appRoutes: Routes = [{
         LoginComponent,
         TasksComponent,
         ImportComponent,
+		ValidateComponent,
     ],
     imports: [
 		BrowserModule,
