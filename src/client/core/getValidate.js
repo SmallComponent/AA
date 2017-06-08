@@ -3,7 +3,8 @@ module.exports = getValidate;
 const logger = require('./utils/logger.js');
 const curlHelper = require('./curlHelper');
 
-const validateUrl = 'http://www.adidas.com.cn/captcha/ajax/getestStart/';
+// const validateUrl = 'http://www.adidas.com.cn/captcha/ajax/getestStart/';
+const validateUrl = 'http://localhost:9977/gt/register-fullpage/';
 
 function getValidate(context) {
 	return Promise.resolve(context)
@@ -14,7 +15,7 @@ function getValidate(context) {
 			return context.curl.get(url);
 		})
 		.then(function(context) {
-			let data = context.body;
+			let data = JSON.parse(context.body);
 			// logger.log({
 			logger.taskResult({
 				task: 'getValidate',
