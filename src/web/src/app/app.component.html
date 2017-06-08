@@ -1,16 +1,14 @@
 <h1>
   {{title}}
 </h1>
-
 <nav>
   <a routerLink="./" routerLinkActive="active">Home</a>
-  <a routerLink="./login" routerLinkActive="active">Login</a>  
+  <a routerLink="./login" routerLinkActive="active">Login</a>
   <a routerLink="./tasks" routerLinkActive="active">Tasks</a>
   <a routerLink="./import" routerLinkActive="active">Import</a>
-  <a routerLink="./validate" routerLinkActive="active">validate</a>
+  <a routerLink="./validate" routerLinkActive="active">Validate</a>
   <a [routerLink]="[{ outlets: { popup: ['compose'] }}]">Contact</a>
 </nav>
-
 <div>
   <router-outlet></router-outlet>
 </div>
