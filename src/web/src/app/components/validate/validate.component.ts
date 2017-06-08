@@ -37,33 +37,34 @@ export class ValidateComponent implements OnInit, OnDestroy {
 	}
 
     initValidateHandler() {
-		var self = this;
 		const ipcRenderer = electron.ipcRenderer;
+		ipcRenderer.on('taskResult', this.showValidate);
+	}
 
-		ipcRenderer.on('taskResult', (event, data) => {
-			console.log('taskResult:', data);
-			let result = data.result;
-			self.captchaData = JSON.stringify(result);
+	showValidate(event, data) {
+        var self = this;
+		console.log('taskResult:', data);
+		let result = data.result;
+		self.captchaData = JSON.stringify(result);
 
-			initGeetest({
-				gt: result.gt,
-				challenge: result.challenge,
-				offline: !result.success,
-				new_captcha: result.new_captcha,
+		initGeetest({
+			gt: result.gt,
+			challenge: result.challenge,
+			offline: !result.success,
+			new_captcha: result.new_captcha,
 
-				product: 'float',
-				width: '300px'
-			}, function listenCaptcha(captchaObj) {
-				captchaObj.appendTo('#captcha');
-				captchaObj.onReady(function() {
-					$('#wait').hide();
-				});
-				captchaObj.onSuccess(function() {
-					var validateData = captchaObj.getValidate();
-					// self.context.instanceConfigs[0].validateData = validateData;
-					var dataString = JSON.stringify(validateData, null, 4);
-					$('#captchaValidateData').val(dataString);
-				});
+			product: 'float',
+			width: '300px'
+		}, function listenCaptcha(captchaObj) {
+			captchaObj.appendTo('#captcha');
+			captchaObj.onReady(function() {
+				$('#wait').hide();
+			});
+			captchaObj.onSuccess(function() {
+				var validateData = captchaObj.getValidate();
+				// self.context.instanceConfigs[0].validateData = validateData;
+				var dataString = JSON.stringify(validateData, null, 4);
+				$('#captchaValidateData').val(dataString);
 			});
 		});
 	}
