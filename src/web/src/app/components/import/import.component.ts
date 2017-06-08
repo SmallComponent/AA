@@ -54,7 +54,7 @@ ${example}`;
 
 		ipcRenderer.on('taskResult', (event, data) => {
 			console.log('taskResult:', data);
-			let result = JSON.parse(data.result);
+			let result = data.result;
 			self.captchaData = JSON.stringify(result);
 
 			initGeetest({
@@ -103,47 +103,6 @@ ${example}`;
 			command: 'getValidate',
 			context: {},
 		});
-
-		// $.ajax({
-		// 	url: ' http://www.adidas.com.cn/captcha/ajax/getestStart/?t=' + (new Date()).getTime(),
-		// 	type: 'get',
-		// 	dataType: 'jsonp',
-		// 	// processData: false,
-		// 	jsonpCallback: 'callback',
-		// 	success: data => {
-		// 		var dataString = JSON.stringify(data, null, 4);
-		// 		// $('#captchaData').val(dataString);
-		// 		alert(data);
-		// 		this.captchaData = dataString;
-		// 	},
-		// 	error: err => {
-		// 		console.error(err);
-		// 	}
-		// });
-
-
-		// $.ajax({
-		// 	url: 'http://localhost:9977/gt/register-fullpage?t=' + (new Date()).getTime(),
-		// 	type: 'get',
-		// 	processData: false,
-		// 	dataType: 'jsonp',
-		// 	success: data => {
-		// 		var dataString = JSON.stringify(data, null, 4);
-		// 		// $('#captchaData').val(dataString);
-		// 		this.captchaData = dataString;
-		// 	},
-		// 	error: err => {
-		// 		console.error(err);
-		// 	}
-		// });
-
-
-		// $.getJSON('http://localhost:9977/gt/register-fullpage?t=' + (new Date()).getTime())
-		// 	.then(function(data) {
-		// 		var dataString = JSON.stringify(data, null, 4);
-		// 		// $('#captchaData').val(dataString);
-		// 		this.captchaData = dataString;
-		// 	});
 	}
 
 	toCsv(obj) {
