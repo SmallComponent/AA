@@ -2,7 +2,9 @@ const exec = require('child_process').exec;
 
 const workProcess = exec('node ./core/index.js');
 
-let context = {};
+let context = {
+	id: 1,
+};
 
 let task = {
 	command: 'getValidate',

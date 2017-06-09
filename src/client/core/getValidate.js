@@ -6,7 +6,9 @@ const curlHelper = require('./curlHelper');
 // const validateUrl = 'http://www.adidas.com.cn/captcha/ajax/getestStart/';
 const validateUrl = 'http://localhost:9977/gt/register-fullpage/';
 
-function getValidate(context) {
+function getValidate(config) {
+	var context = {};
+
 	return Promise.resolve(context)
 		.then(curlHelper.createCurl)
 		.then(function(context) {
@@ -16,20 +18,17 @@ function getValidate(context) {
 		})
 		.then(function(context) {
 			let data = JSON.parse(context.body);
-			// logger.log({
-			logger.taskResult({
-				task: 'getValidate',
-				result: data,
-			});
+			config.task = 'getValidate';
+			config.result = data;
+			logger.taskResult(config);
 		})
 		.catch(reason => {
+			config.status = 'failed';
+			config.url = context.curl.url;
+			config.reason = JSON.stringify(reason);
+			logger.status(config);
+
 			context.status = 'failed:' + reason;
-			logger.status({
-				id: context.id,
-				status: 'failed',
-				url: context.curl.url,
-				reason: JSON.stringify(reason),
-			});
 			return context;
 		});
 }
