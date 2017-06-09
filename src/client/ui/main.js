@@ -8,6 +8,8 @@ const url = require('url');
 const startReg = /^\s*{/ig;
 const endReg = /}\s*$/ig;
 
+const parseMessages = require('./../core/utils/utils').parseMessages;
+
 
 init();
 
@@ -54,18 +56,6 @@ function bindRenderAndWorkerMessage(mainWindow, workProcess) {
 
 	ipcMain.on('command', function(event, data) {
 		console.log('got command:', data);
-		var result = workProcess.stdin.write(JSON.stringify(data));
+		var result = workProcess.stdin.write(JSON.stringify(data) + '\n');
 	})
-}
-
-function parseMessages(data) {
-	return data.split(/\n|\r/ig)
-		.filter(message => !!message.trim())
-		.map(message => {
-			try {
-				return JSON.parse(message);
-			} catch(e) {
-				return message;
-			}
-		});
 }
