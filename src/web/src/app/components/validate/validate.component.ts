@@ -75,7 +75,7 @@ export class ValidateComponent implements OnInit, OnDestroy {
 	handleValidateResult(captchaObj) {
 		var validateData = captchaObj.getValidate();
 
-		const config = this.context.instanceConfigs[this.currentIndex++];
+		const config = this.context.instanceConfigs[this.currentIndex++]; // this.context.getConfigById();
 		config.validateData = validateData;
 
 		var dataString = JSON.stringify(validateData, null, 4);
