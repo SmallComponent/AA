@@ -11,7 +11,9 @@ let task = {
 
 command = JSON.stringify(task);
 
-workProcess.stdin.write(command);
+workProcess.stdin.write(command + '\n');
+workProcess.stdin.write(command + '\n');
+workProcess.stdin.write(command + '\n');
 
 workProcess.stdout.on('data', function(data) {
 	console.log(data);
