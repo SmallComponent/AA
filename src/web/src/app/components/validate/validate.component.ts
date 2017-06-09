@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import $ from './../../../js/libs/jquery/jquery';
 import initGeetest from './../../../js/libs/gt/gt';
 import { run } from './../../../js/run';
 
@@ -11,9 +10,15 @@ import {ContextService} from './../../services/context.service';
 @Component({
 	selector: 'app-validate',
 	templateUrl: './validate.component.html',
-	styleUrls: ['./validate.component.css']
+	styleUrls: ['./validate.component.css'],
 })
 export class ValidateComponent implements OnInit, OnDestroy {
+
+	captchaData = '';
+	captchaValidateData = '';
+	showWaiting = true;
+	context = new Context();
+	currentIndex = 0;
 
 	constructor(
         private contextService: ContextService,
@@ -38,35 +43,47 @@ export class ValidateComponent implements OnInit, OnDestroy {
 
     initValidateHandler() {
 		const ipcRenderer = electron.ipcRenderer;
-		ipcRenderer.on('taskResult', this.showValidate);
+		ipcRenderer.on('taskResult', (event, data) => {
+			console.log('taskResult:', data);
+			this.showValidate(data);
+		});
 	}
 
-	showValidate(event, data) {
-        var self = this;
-		console.log('taskResult:', data);
-		let result = data.result;
-		self.captchaData = JSON.stringify(result);
+	showValidate(data) {
+		const result = data.result;
+		this.captchaData += JSON.stringify(result);
+		this.showGeTest(result);
+	}
 
+	showGeTest(gtInfo) {
 		initGeetest({
-			gt: result.gt,
-			challenge: result.challenge,
-			offline: !result.success,
-			new_captcha: result.new_captcha,
+			gt: gtInfo.gt,
+			challenge: gtInfo.challenge,
+			offline: !gtInfo.success,
+			new_captcha: gtInfo.new_captcha,
 
 			product: 'float',
-			width: '300px'
-		}, function listenCaptcha(captchaObj) {
-			captchaObj.appendTo('#captcha');
-			captchaObj.onReady(function() {
-				$('#wait').hide();
-			});
-			captchaObj.onSuccess(function() {
-				var validateData = captchaObj.getValidate();
-				// self.context.instanceConfigs[0].validateData = validateData;
-				var dataString = JSON.stringify(validateData, null, 4);
-				$('#captchaValidateData').val(dataString);
-			});
-		});
+		}, captchaObj => this.listenCaptcha(captchaObj));
+	}
+
+	listenCaptcha(captchaObj) {
+		captchaObj.appendTo('#captcha');
+		captchaObj.onReady(() => this.hideWating());
+		captchaObj.onSuccess(() => this.handleValidateResult(captchaObj));
+	}
+
+	handleValidateResult(captchaObj) {
+		var validateData = captchaObj.getValidate();
+
+		const config = this.context.instanceConfigs[this.currentIndex++];
+		config.validateData = validateData;
+
+		var dataString = JSON.stringify(validateData, null, 4);
+		this.captchaValidateData += dataString;
+	}
+
+	hideWating() {
+		this.showWaiting = false;
 	}
 
 	prepareValidate(config, index) {
