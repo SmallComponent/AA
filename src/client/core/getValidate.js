@@ -3,8 +3,8 @@ module.exports = getValidate;
 const logger = require('./utils/logger.js');
 const curlHelper = require('./curlHelper');
 
-// const validateUrl = 'http://www.adidas.com.cn/captcha/ajax/getestStart/';
-const validateUrl = 'http://localhost:9977/gt/register-fullpage/';
+const validateUrl = 'http://www.adidas.com.cn/captcha/ajax/getestStart/';
+// const validateUrl = 'http://localhost:9977/gt/register-fullpage/';
 
 function getValidate(config) {
 	var context = {};
