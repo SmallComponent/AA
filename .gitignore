@@ -1,0 +1,4 @@
+**/node_modules/**/*
+src/client/ui/pages/**/*
+src/server/static/**/*
+src/web/dist/**/*
