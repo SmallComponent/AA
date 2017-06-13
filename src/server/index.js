@@ -1,6 +1,6 @@
 const koaStatic = require('koa-static');
 const Koa = require('koa');
-const koaBody = require('koa-body');
+const koaBodyParser = require('koa-bodyparser');
 const koaMongo = require('koa-mongo');
 const app = new Koa();
 
@@ -14,7 +14,7 @@ const mongoOption = {
 };
 
 app
-	.use(koaBody())
+	.use(koaBodyParser())
 	.use(koaMongo(mongoOption))
 	.use(router.routes())
 	.use(router.allowedMethods())
