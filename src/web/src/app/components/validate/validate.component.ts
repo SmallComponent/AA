@@ -36,12 +36,20 @@ export class ValidateComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
+		if(!electron){
+			return;
+		}
+		
 		const ipcRenderer = electron.ipcRenderer;
 
 		ipcRenderer.removeAllListeners('taskResult');
 	}
 
     initValidateHandler() {
+		if(!electron){
+			return;
+		}
+
 		const ipcRenderer = electron.ipcRenderer;
 		ipcRenderer.on('taskResult', (event, data) => {
 			console.log('taskResult:', data);

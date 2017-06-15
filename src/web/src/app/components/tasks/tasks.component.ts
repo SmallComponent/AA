@@ -39,6 +39,9 @@ export class TasksComponent implements OnInit, OnDestroy {
     }
 
 	ngOnDestroy() {
+		if(! electron){
+			return ;
+		}
         const ipcRenderer = electron.ipcRenderer;
 
         ipcRenderer.removeAllListeners('log');
@@ -49,6 +52,9 @@ export class TasksComponent implements OnInit, OnDestroy {
 
 	bindEventHandlers() {
         let self = this;
+		if(! electron){
+			return ;
+		}
 
 		const ipcRenderer = electron.ipcRenderer;
 

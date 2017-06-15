@@ -8,31 +8,10 @@
      <base href="./"> 
 
     <script type="text/javascript">
-      window.nodeRequire = require;
-      // window.nodeExports = exports;
-      window.nodeModule = module;
-      delete window.require;
-      // delete window.exports;
-      delete window.module;
-    </script>
-
-    <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.js">
-    </script> -->
-
-    <script type="text/javascript">
-      window.require = nodeRequire;
-      // window.exports = nodeExports;
-      window.module = nodeModule;
-      delete window.nodeRequire;
-      // delete window.nodeExports;
-      delete window.nodeModule;
-    </script>
-
-    <!-- <script type="text/javascript" src="./js/index.js">
-    </script> -->
-
-    <script type="text/javascript">
-      const electron = require('electron');
+      if(window.require){
+        var electron = require('electron');
+      }
+ 
     </script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
