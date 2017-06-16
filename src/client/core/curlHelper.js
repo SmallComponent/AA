@@ -168,6 +168,6 @@ function getLogFilePath(id, fileName) {
 	return fullPath;
 }
 function getLogFolder(){
-	let fullPath = path.join(__dirname, `./../../log/`);
+	let fullPath = path.join(__dirname, `./log/`);
 	return fullPath;
 }
