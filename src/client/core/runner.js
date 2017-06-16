@@ -15,6 +15,7 @@ let orderDetail = require('./orderDetail').orderDetail;
 exports.start = start;
 
 function start(context) {
+	context.status = 'initializing';
 	return Promise.resolve(context)
 		.then(curlHelper.createCurl)
 		.then(loadLoginPage)
@@ -40,7 +41,7 @@ function start(context) {
 			logger.status({
 				id: context.id,
 				status: 'failed',
-				url: context.curl.url,
+				url: context.curl?context.curl.url:'undefined',
 				reason: JSON.stringify(reason),
 			});
 			return context;
