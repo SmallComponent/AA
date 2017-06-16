@@ -39,6 +39,7 @@ function createCurl(context) {
 
 	appendHttpMethod(context);
 
+	context.status = 'curl created';
 	return context;
 }
 
@@ -162,7 +163,11 @@ function httpResult() {
 }
 
 function getLogFilePath(id, fileName) {
-	let fullPath = path.join(__dirname, `./../../../log/${id}-${fileName}`);
-
+	let fullPath = path.join(getLogFolder(), `./${id}-${fileName}`);
+	console.log(fullPath);
+	return fullPath;
+}
+function getLogFolder(){
+	let fullPath = path.join(__dirname, `./../../log/`);
 	return fullPath;
 }
