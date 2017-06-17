@@ -49,16 +49,20 @@ export class LoginComponent implements OnInit {
 				return result;
 			});
 	}
-	register(): Observable<boolean> {
+	register() {
 		if (!this.user.validate(true)) {
 			return;
 		}
 
-		return this.userService
+		this.userService
 			.register(this.user)
 			.subscribe(result => {
-				alert('register:' + result);
-				return result;
+				if(result){
+					alert('注册成功');
+				}
+				else{
+					alert('用户名已存在');
+				}
 			});
 	}
 
