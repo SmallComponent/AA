@@ -31,7 +31,7 @@ const appRoutes: Routes = [{
 		component: ValidateComponent,
 	}, {
 		path: '',
-		redirectTo: '/home',
+		redirectTo: '/login',
 		pathMatch: 'full',
 	},];
 

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Router}  from '@angular/router';
+import {Location}               from '@angular/common';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -14,24 +16,32 @@ import {UserService} from '../../services/user.service';
 })
 export class LoginComponent implements OnInit {
 
-    user: User = new User('x', 'x');
+    user: User = new User('', '');
 
 	constructor(
-		private userService: UserService
+		private userService: UserService,
+        private router:Router,
+        private location:Location		
 	) { }
 
 	ngOnInit() {
 	}
 
-	login(): Observable<boolean> {
+	login() {
 		if (!this.user.validate(true)) {
 			return;
 		}
 
-		return this.userService
+		this.userService
 			.login(this.user)
 			.subscribe(result => {
-				alert('login:' + result);
+				console.log('login result:' + JSON.stringify(result);
+				let userData = result[0];
+				if(userData){
+					this.user.accountLimit = userData.accountLimit;
+					this.userService.setUser(this.user);
+					this.router.navigate(['/tasks']);
+				}
 				return result;
 			});
 	}
