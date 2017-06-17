@@ -164,7 +164,6 @@ function httpResult() {
 
 function getLogFilePath(id, fileName) {
 	let fullPath = path.join(getLogFolder(), `./${id}-${fileName}`);
-	console.log(fullPath);
 	return fullPath;
 }
 function getLogFolder(){
