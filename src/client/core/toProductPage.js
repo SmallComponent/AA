@@ -18,8 +18,14 @@ function getProductId(context) {
 				context.productId = productId;
 				return context;
 			} else {
-				//产品页面可能还没有发布，接着刷产品页面，中间应该能设置一定时间间隔，免得被拉黑
-				return getProductId(context);
+				//产品页面可能还没有发布，接着刷产品页面，中间应该能设置一定时间间隔:200ms，免得被拉黑
+				return new Promise(function(resolve,reject){
+					setTimeout(function(){
+						getProductId(context)
+						.then(cxt=>resolve(cxt));
+					},200);
+				});
+				
 			}
 		});
 }
