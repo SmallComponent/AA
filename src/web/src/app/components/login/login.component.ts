@@ -41,7 +41,10 @@ export class LoginComponent implements OnInit {
 					this.user.accountLimit = userData.accountLimit;
 					this.userService.setUser(this.user);
 					this.router.navigate(['/tasks']);
+				}else{
+					alert('用户名或密码错误');
 				}
+
 				return result;
 			});
 	}
