@@ -11,7 +11,7 @@ import { MyHttpService } from './myHttp.service';
 
 @Injectable()
 export class UserService extends MyHttpService {
-
+	user: User = new User('', '');
 	constructor(
 		protected http: Http
 	) {
@@ -24,6 +24,14 @@ export class UserService extends MyHttpService {
 
 	register(user: User): Observable<boolean> {
 		return this.postData('/register', user);
+	}
+
+	setUser(user){
+		this.user = user;
+	}
+
+	getUser(){
+		return this.user;
 	}
 
 }
