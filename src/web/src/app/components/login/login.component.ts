@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
 				console.log('login result:' + JSON.stringify(result);
 				let userData = result[0];
 				if(userData){
+					alert('登录成功');
 					this.user.accountLimit = userData.accountLimit;
 					this.userService.setUser(this.user);
 					this.router.navigate(['/tasks']);
