@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
+import Rx from 'rxjs';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
@@ -13,6 +14,8 @@ import { MyHttpService } from './myHttp.service';
 @Injectable()
 export class ContextService extends MyHttpService {
 
+	private contextSubject = new Rx.Subject();
+
 	constructor(
 		protected http: Http
 	) {
@@ -20,12 +23,17 @@ export class ContextService extends MyHttpService {
 	}
 
 	saveContext(context): Observable<boolean> {
+		this.contextSubject.next(context);
 		return this.postData('', context.instanceConfigs);
 	}
 
 	getContext(): Observable<Context> {
-		return this.get('')
-			.map(this.convertToContext);
+		this.get('')
+			.map(this.convertToContext)
+			.subscribe(context=>{
+				this.contextSubject.next(context);
+		});
+		return this.contextSubject;
 	}
 
 	private convertToContext(configs): Context {
