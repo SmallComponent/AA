@@ -1,4 +1,5 @@
 exports.toProductPage = toProductPage;
+exports.parseProductId = parseProductId;
 
 function toProductPage(context) {
 	context.status = '加载产品页面...';
@@ -10,9 +11,7 @@ function getProductId(context) {
 	let url = context.productUrl;
 	return context.curl.get(url)
 		.then(function (context) {
-			let regexp = /url:\s*\"http:\/\/www.adidas.com.cn\/specific\/product\/ajaxview\/\"\,\s*data:\s*\"id=\"\s*\+\s*(\d+)/ig;
-			let result = regexp.exec(context.body);
-			let productId = result[1];
+			let productId = parseProductId(context.body);
 
 			if (productId) {
 				context.productId = productId;
@@ -29,3 +28,10 @@ function getProductId(context) {
 			}
 		});
 }
+
+function parseProductId(body){
+	let regexp = /url:\s*\"http:\/\/www.adidas.com.cn\/specific\/product\/ajaxview\/\"\,\s*data:\s*\"id=\"\s*\+\s*(\d+)/ig;
+	let result = regexp.exec(body);
+	return result[1];
+}
+
