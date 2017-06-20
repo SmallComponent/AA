@@ -32,6 +32,6 @@ function getProductId(context) {
 function parseProductId(body){
 	let regexp = /url:\s*\"http:\/\/www.adidas.com.cn\/specific\/product\/ajaxview\/\"\,\s*data:\s*\"id=\"\s*\+\s*(\d+)/ig;
 	let result = regexp.exec(body);
-	return result[1];
+	return result ? result[1] :null;
 }
 

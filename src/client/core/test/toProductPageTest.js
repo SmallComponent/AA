@@ -18,11 +18,35 @@ const regularProductPage = `
         });
 `;
 
+const illformedProductPage = `
+        showproductdetails();
+        $("#sort_type a").click(function(){
+        var $ele = $(this);
+        var psort = $(this).data('sort');
+        var qData = "id=346736&psort="+psort+"&ratings="+$("#filterBoxUl").data('r');
+        $.ajax({
+            url:"http://www.adidas.com.cn/specific/product/ajaxreview/",
+            data:qData,
+            dataType:'html',
+            success:function(html){
+                $(".pdpCommentsList").html(html);
+                $ele.siblings().removeClass("cur");
+                $ele.addClass("cur");
+            }
+        });
+    });
+`;
+
 
 describe('parserProductId test',function(){
     it('should successd parse productId from regular product page body',function(){
         let productId = toProductPage.parseProductId(regularProductPage);
         productId.should.be.exactly('346736');
+    });
+
+    it('should return null if input not has avaliable productId',function(){
+        let productId = toProductPage.parseProductId(illformedProductPage);
+        (! productId).should.be.exactly(true);
     });
 
 });
