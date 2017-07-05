@@ -8,7 +8,7 @@ const url = require('url');
 const startReg = /^\s*{/ig;
 const endReg = /}\s*$/ig;
 
-const parseMessages = require('./../core/utils/utils').parseMessages;
+const parseMessages = require('./node/utils').parseMessages;
 
 
 init();

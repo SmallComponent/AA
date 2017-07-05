@@ -1,5 +1,13 @@
 {
-  "name"    : "your-app",
-  "version" : "0.1.0",
-  "main"    : "main.js"
+  "name": "adidas-app",
+  "version": "0.1.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "package": "./node_modules/.bin/electron-packager ./ --platform=win32 --arch=x64  --out ~/Desktop/app --version 1.4.0 --overwrite --icon=./img/discount.ico"
+  },
+  "devDependencies": {
+    "electron-packager": "^8.7.2",
+    "electron-prebuilt": "^1.4.13"
+  }
 }
