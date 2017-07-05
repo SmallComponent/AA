@@ -100,6 +100,9 @@ export class TasksComponent implements OnInit, OnDestroy {
         });
 	}
 
-
+	showPay(config) {
+        console.log('showPay', config.payPage);
+        config.payCount = (config.payCount || 0) + 1;
+	}
 
 }

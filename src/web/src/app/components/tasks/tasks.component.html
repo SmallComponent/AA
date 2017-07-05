@@ -21,7 +21,10 @@
       <td>{{config.proxyUserName}}</td>
       <td>{{config.proxyPassword}}</td>
       <td>{{config.status}}</td>
-      <td>{{config.payPage}}</td>
+      <td>
+        <button *ngIf="config.payPage" (click)="showPay(config)">Pay</button>
+        <span>{{config.payCount}}</span>
+      </td>
     </tr>
   </table>
 </div>

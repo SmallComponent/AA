@@ -7,8 +7,9 @@
   <a routerLink="./tasks" routerLinkActive="active">Tasks</a>
   <a routerLink="./import" routerLinkActive="active">Import</a>
   <a routerLink="./validate" routerLinkActive="active">Validate</a>
-  <a [routerLink]="[{ outlets: { popup: ['compose'] }}]">Contact</a>
+  <a [routerLink]="[{ outlets: { popup: ['pay'] }}]">Contact</a>
 </nav>
 <div>
   <router-outlet></router-outlet>
+  <router-outlet name="popup"></router-outlet>
 </div>

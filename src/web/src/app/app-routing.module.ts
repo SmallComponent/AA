@@ -13,6 +13,7 @@ import { LoginComponent } from './components/login/login.component';
 import { TasksComponent } from './components/tasks/tasks.component';
 import { ImportComponent } from './components/import/import.component';
 import { ValidateComponent } from './components/validate/validate.component';
+import { PayComponent } from './components/pay/pay.component';
 
 const appRoutes: Routes = [{
 	path: 'home',
@@ -30,6 +31,10 @@ const appRoutes: Routes = [{
 		path: 'validate',
 		component: ValidateComponent,
 	}, {
+		path: 'pay',
+		component: PayComponent,
+		outlet: 'popup',
+	}, {
 		path: '',
 		redirectTo: '/login',
 		pathMatch: 'full',
@@ -42,6 +47,7 @@ const appRoutes: Routes = [{
         TasksComponent,
         ImportComponent,
 		ValidateComponent,
+		PayComponent,
     ],
     imports: [
 		BrowserModule,
