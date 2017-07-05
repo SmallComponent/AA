@@ -92,15 +92,18 @@ function bindEndHandler(context) {
 function logResult(result) {
 	let fileName = result.curl.url
 		.replace('//www.adidas.com.cn/', '')
-		.replace(/[:\/\.\?]/ig, '_');
+		.replace(/[:\/\.\?]/ig, '_')
+		.substring(0, 180);
 
 	let bodyFileName = `${i}_${fileName}_body.html`;
 	let bodyPath = getLogFilePath(result.id, bodyFileName);
 	fs.writeFileSync(bodyPath, result.body);
+	result.bodyPath = bodyPath;
 
 	let headerFileName = `${i}_${fileName}_header.json`;
 	let headerPath = getLogFilePath(result.id, headerFileName)
 	fs.writeFileSync(headerPath, JSON.stringify(result.headers));
+	result.headerPath = headerPath;
 
 	i++;
 }
@@ -166,7 +169,8 @@ function getLogFilePath(id, fileName) {
 	let fullPath = path.join(getLogFolder(), `./${id}-${fileName}`);
 	return fullPath;
 }
-function getLogFolder(){
+
+function getLogFolder() {
 	let fullPath = path.join(__dirname, `./log/`);
 	return fullPath;
 }

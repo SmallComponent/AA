@@ -23,6 +23,8 @@ function init() {
 		bindRenderAndWorkerMessage(mainWindow, workProcess);
 		mainWindow.loadURL('http://localhost:3000');
 
+		mainWindow.webContents.openDevTools();
+
 		// mainWindow.loadURL(url.format({
 		// 	// pathname: './browser/index.html',
 		// 	// pathname: '/pages/index.html',

@@ -10,7 +10,7 @@ let addToCart = require('./addToCart').addToCart;
 let toOrder = require('./toOrder').toOrder;
 let saveOrder = require('./saveOrder').saveOrder;
 let orderDetail = require('./orderDetail').orderDetail;
-// let pay = require('./pay').pay;
+let pay = require('./pay').pay;
 
 exports.start = start;
 
@@ -26,13 +26,15 @@ function start(context) {
 		.then(toOrder)
 		.then(saveOrder)
 		// .then(orderDetail)
-		// .then(pay)
+		.then(pay)
 		.then(context => {
 			context.status = 'success';
 			logger.status({
 				id: context.id,
 				url: context.curl.url,
 				status: 'success',
+				bodyPath: context.bodyPath,
+				headerPath: context.headerPath,
 			});
 			return context;
 		})
@@ -41,8 +43,10 @@ function start(context) {
 			logger.status({
 				id: context.id,
 				status: 'failed',
-				url: context.curl?context.curl.url:'undefined',
+				url: context.curl ? context.curl.url : 'undefined',
 				reason: JSON.stringify(reason),
+				bodyPath: context.bodyPath,
+				headerPath: context.headerPath,
 			});
 			return context;
 		});

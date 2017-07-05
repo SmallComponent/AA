@@ -39,8 +39,8 @@ export class TasksComponent implements OnInit, OnDestroy {
     }
 
 	ngOnDestroy() {
-		if(! electron){
-			return ;
+		if (!electron) {
+			return;
 		}
         const ipcRenderer = electron.ipcRenderer;
 
@@ -52,8 +52,8 @@ export class TasksComponent implements OnInit, OnDestroy {
 
 	bindEventHandlers() {
         let self = this;
-		if(! electron){
-			return ;
+		if (!electron) {
+			return;
 		}
 
 		const ipcRenderer = electron.ipcRenderer;
@@ -77,6 +77,9 @@ export class TasksComponent implements OnInit, OnDestroy {
 			let config = self.context.getConfigById(data.id);
             if (config) {
 				config.status = data.status;
+                if (config.status === 'success') {
+                    config.payPage = data.bodyPath;
+                }
 			}
             self.context.status = data.status;
 		});

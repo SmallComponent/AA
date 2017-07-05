@@ -1,7 +1,6 @@
 <div>
   <button id="run" [disabled]="context.isRuning" (click)="run()">run</button>
 </div>
-
 <div id="results">
   <table border="1">
     <tr>
@@ -12,6 +11,7 @@
       <th>proxyUserName</th>
       <th>proxyPassword</th>
       <th>status</th>
+      <th>payPage</th>
     </tr>
     <tr *ngFor="let config of getConfigs()">
       <td>{{config.userName}}</td>
@@ -21,12 +21,15 @@
       <td>{{config.proxyUserName}}</td>
       <td>{{config.proxyPassword}}</td>
       <td>{{config.status}}</td>
+      <td>{{config.payPage}}</td>
     </tr>
   </table>
 </div>
-
 <div>
   <h3>status:</h3>
-  <p><span>{{timer | async}}</span>::{{context.status}}</p>
-  <p><span>{{context.timeSpan}}</span></p>
+  <p>
+    <span>{{timer | async}}</span>::{{context.status}}</p>
+  <p>
+    <span>{{context.timeSpan}}</span>
+  </p>
 </div>

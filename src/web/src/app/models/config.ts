@@ -9,5 +9,6 @@ export default class Config {
 		public proxyUserName?: string | null,
 		public proxyPassword?: string | null,
 		public status?: string | null,
+        public payPage?: string | null,
     ) { }
 }
