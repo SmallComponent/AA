@@ -15,6 +15,8 @@ import Config  from './../../models/config';
 import Context from './../../models/context';
 import {ContextService} from './../../services/context.service';
 
+import { ActivatedRoute, Router } from '@angular/router';
+
 @Component({
 	selector: 'app-tasks',
 	templateUrl: './tasks.component.html',
@@ -27,6 +29,7 @@ export class TasksComponent implements OnInit, OnDestroy {
 
 	constructor(
         private contextService: ContextService,
+        private router: Router,
     ) { }
 
 
@@ -77,9 +80,9 @@ export class TasksComponent implements OnInit, OnDestroy {
 			let config = self.context.getConfigById(data.id);
             if (config) {
 				config.status = data.status;
-                if (config.status === 'success') {
-                    config.payPage = data.bodyPath;
-                }
+                // if (config.status === 'success') {
+				config.payPage = data.bodyPath;
+                // }
 			}
             self.context.status = data.status;
 		});
@@ -103,6 +106,13 @@ export class TasksComponent implements OnInit, OnDestroy {
 	showPay(config) {
         console.log('showPay', config.payPage);
         config.payCount = (config.payCount || 0) + 1;
+        this.router.navigate([{
+			outlets: {
+				popup: ['pay', {
+					payBodyPath: config.payPage,
+				},],
+			},
+		}]);
 	}
 
 }
