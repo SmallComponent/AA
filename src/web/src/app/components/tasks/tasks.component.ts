@@ -13,7 +13,8 @@ import { run } from './../../../js/run';
 
 import Config  from './../../models/config';
 import Context from './../../models/context';
-import {ContextService} from './../../services/context.service';
+import { ContextService } from './../../services/context.service';
+import { PayService } from '../../services/pay.service';
 
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -29,6 +30,7 @@ export class TasksComponent implements OnInit, OnDestroy {
 
 	constructor(
         private contextService: ContextService,
+        private payService: PayService,
         private router: Router,
     ) { }
 
@@ -113,6 +115,8 @@ export class TasksComponent implements OnInit, OnDestroy {
 				},],
 			},
 		}]);
+
+        this.payService.bodyPathSubject.next(config.payPage);
 	}
 
 }

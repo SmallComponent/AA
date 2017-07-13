@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { Router, ActivatedRoute, Params }     from '@angular/router';
 
+import { PayService } from '../../services/pay.service';
+
 @Component({
 	// selector: 'pay',
 	templateUrl: './pay.component.html',
@@ -13,6 +15,7 @@ export class PayComponent implements OnInit {
 
 	constructor(
 		private route: ActivatedRoute,
+		private payService: PayService,
 	) { }
 
 	ngOnInit() {
@@ -31,6 +34,13 @@ export class PayComponent implements OnInit {
 				console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', this.payBodyPath);
 				return this.payBodyPath;
 			});
+
+		this.payService.bodyPathSubject.subscribe({
+			next: (path) => {
+				this.payBodyPath = path;
+				console.log('nextPath:', path);
+			},
+		});
 	}
 
 }

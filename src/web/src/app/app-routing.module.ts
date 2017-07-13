@@ -5,8 +5,9 @@ import { FormsModule } from '@angular/forms';
 
 import { Routes, RouterModule, PreloadAllModules, }     from '@angular/router';
 
-import {ContextService}  from './services/context.service';
-import {UserService}  from './services/user.service';
+import { ContextService }  from './services/context.service';
+import { UserService }  from './services/user.service';
+import { PayService }  from './services/pay.service';
 
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
@@ -61,6 +62,7 @@ const appRoutes: Routes = [{
     providers: [
 		ContextService,
 		UserService,
+		PayService,
 	],
 })
 export class AppRoutingModule { }
